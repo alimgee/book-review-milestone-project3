@@ -1,0 +1,22 @@
+.footer{
+    line-height: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    background-color: #45a29e;
+    padding: 1rem;
+    color: aliceblue;
+}
+
+/*----------------------nav --------------------*/
+/* change the background color */
+.bg-light {
+    background-color: #45a29e!important;
+   
+}
+/* change text color */
+.navbar-light .navbar-brand  {
+    color: rgba(235, 209, 209, 0.9);
+}
+.nav-item{
+    color: rgba(235, 209, 209, 0.9)!important;
+}
