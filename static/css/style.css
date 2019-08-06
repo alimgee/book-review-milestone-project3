@@ -2,21 +2,53 @@
     line-height: 1rem;
     font-size: 1rem;
     text-align: center;
-    background-color: #45a29e;
+    background-color: #6D929B;
     padding: 1rem;
-    color: aliceblue;
+    color: #F5FAFA;
 }
 
 /*----------------------nav --------------------*/
 /* change the background color */
 .bg-light {
-    background-color: #45a29e!important;
+    background-color: #6D929B!important;
    
 }
 /* change text color */
 .navbar-light .navbar-brand  {
-    color: rgba(235, 209, 209, 0.9);
+    color: #F5FAFA;
 }
 .nav-item{
-    color: rgba(235, 209, 209, 0.9)!important;
+    color: #F5FAFA!important;
 }
+
+.jumbotron{
+    background-image: url('../img/books-.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #6D929B;
+    font-weight: bold;
+    
+}
+.lead{
+    margin-right: 8%;
+}
+
+/* media queries */
+
+@media (min-width: 576px) { 
+    .lead{
+        margin-right: 25%;
+    }
+ }
+
+
+@media (min-width: 768px) { 
+    .lead{
+        margin-right: 33%;
+    }
+ }
+
+
+
+
+

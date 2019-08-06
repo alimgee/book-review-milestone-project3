@@ -13,7 +13,7 @@
 
 <body>
     <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">BookBites</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,16 +29,48 @@
     </header>
 
     <main>
-    <div class="container">
-        <div class="row">
-               
-            <div class="col-12">
-            
-                
-                {% block content%}{% endblock %}
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="jumbotron jumbotron mt-4">
+                        <div class="container">
+                            <h1 class=""> <strong>Books Bites</strong> 
+                            </h1>
+                            <p class="lead "><strong> debitis, enim autem minima ipsam maxime fugiat quos voluptas eaque ab,
+                                vel id iusto aperiam excepturi esse, accusantium maiores laudantium aliquam?</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">Reviewer name</div>
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-12 col-md-4">Author</div>
+                                <div class="col-12 col-md-4">Book title</div>
+                                <div class="col-12 col-md-4">Book category</div>
+
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-12">Book Summary<br>Lorem ipsum dolor sit amet, consectetur
+                                    adipisicing elit. Inventore harum fugit reiciendis. Corrupti at qui harum soluta
+                                    culpa perferendis ipsum
+                                    magni doloribus mollitia facere maiores, iusto in nostrum ea modi.
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12"><a class="btn btn-info" href="#">view full review</a></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {% block content%}{% endblock %}
+                </div>
             </div>
         </div>
-    </div>
     </main>
     <footer class="footer"> Footer
     </footer>
