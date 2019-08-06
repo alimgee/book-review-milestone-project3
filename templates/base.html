@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
 </head>
 
@@ -21,7 +22,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link " href="#">login </a>
+                    <a class="nav-item nav-link " href="#">Login </a>
                     <a class="nav-item nav-link " href="#">Register</a>
                 </div>
             </div>
@@ -43,23 +44,23 @@
                     </div>
 
                     <div class="card">
-                        <div class="card-header">Reviewer name</div>
+                        <div class="card-header reviewer"><span class="review-title"><strong>Reviewed by:</strong></span> </div>
                         <div class="card-body">
 
                             <div class="row">
-                                <div class="col-12 col-md-4">Author</div>
-                                <div class="col-12 col-md-4">Book title</div>
-                                <div class="col-12 col-md-4">Book category</div>
+                                <div class="col-12 col-md-4"><span class="review-title"><span class="review-title"><strong>Author:</strong></span> </div>
+                                <div class="col-12 col-md-4"><span class="review-title"><strong>Book Title:</strong></span> </div>
+                                <div class="col-12 col-md-4"><span class="review-title"><strong>Book Category:</strong></span> </div>
 
                             </div>
                             <hr />
                             <div class="row">
-                                <div class="col-12">Book Summary<br>Lorem ipsum dolor sit amet, consectetur
+                                <div class="col-12"><span class="review-title"><strong>Book Summary:</strong></span><br><br>Lorem ipsum dolor sit amet, consectetur
                                     adipisicing elit. Inventore harum fugit reiciendis. Corrupti at qui harum soluta
-                                    culpa perferendis ipsum
-                                    magni doloribus mollitia facere maiores, iusto in nostrum ea modi.
+                                    culpa perferendis ipsum magni doloribus mollitia facere maiores, iusto in nostrum ea modi.
                                 </div>
                             </div>
+                            <hr />
                             <div class="row">
                                 <div class="col-12"><a class="btn btn-info" href="#">view full review</a></div>
                             </div>
