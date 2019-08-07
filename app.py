@@ -18,7 +18,7 @@ def index():
     ''' function to display all records on the landing page''' 
     users=mongo.db.users.find()
     reviews=mongo.db.reviews.find().sort('upvote', pymongo.DESCENDING)# sort reviews by popularity (upvote)
-    return render_template("index.html", users=users, reviews = reviews)
+    return render_template("index.html", reviews = reviews)
 
 @app.route('/review/<id>', methods=['GET', 'POST'])
 def review(id):
@@ -28,6 +28,11 @@ def review(id):
     title = one_review['book_title']
     return render_template("review.html",  review = one_review, title =title)
 
+@app.route('/upvote/<id>', methods=['GET', 'POST'])
+def upvote(id):
+    '''function to increase upvote by 1'''
+    mongo.db.reviews.find_one_and_update({'_id': ObjectId(id)},{'$inc': {'upvote': 1}})
+    return redirect(url_for('review', id=id))# run review route to reload review.html
 
 
 if __name__ == '__main__':
