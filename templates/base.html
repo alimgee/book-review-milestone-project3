@@ -6,11 +6,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    {% if title %}
+    <title> BookBites: {{ title }}</title>
+    {% else %}
+    <title>Welcome to my BookBites!</title>
+    {% endif %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet"> 
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
+>
+
 </head>
 
 <body>
@@ -43,9 +49,6 @@
                                 Even write your own reviews on BookBites.</strong></p>
                         </div>
                     </div>
-
-
-
                     {% block content%}{% endblock %}
                 </div>
             </div>
