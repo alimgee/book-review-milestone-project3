@@ -9,6 +9,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet"> 
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
 </head>
 
@@ -43,30 +44,7 @@
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-header reviewer"><span class="review-title"><strong>Reviewed by:</strong></span> </div>
-                        <div class="card-body">
 
-                            <div class="row">
-                                <div class="col-12 col-md-4"><span class="review-title"><span class="review-title"><strong>Author:</strong></span> </div>
-                                <div class="col-12 col-md-4"><span class="review-title"><strong>Book Title:</strong></span> </div>
-                                <div class="col-12 col-md-4"><span class="review-title"><strong>Book Category:</strong></span> </div>
-
-                            </div>
-                            <hr />
-                            <div class="row">
-                                <div class="col-12"><span class="review-title"><strong>Book Summary:</strong></span><br><br>Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Inventore harum fugit reiciendis. Corrupti at qui harum soluta
-                                    culpa perferendis ipsum magni doloribus mollitia facere maiores, iusto in nostrum ea modi.
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="row">
-                                <div class="col-12"><a class="btn btn-info" href="#">view full review</a></div>
-                            </div>
-
-                        </div>
-                    </div>
 
                     {% block content%}{% endblock %}
                 </div>

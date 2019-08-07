@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 {% block content%}
-
-
-{% for field in users %}
-<p>Username in user collection: {{field.username}}</p>
-
-{% endfor %}
 {% for review in reviews %}
-<p>Username in reviews collection: {{review.username}}</p>
-
+<div class="card mb-4">
+    <div class="card-header reviewer"><span class="review-title "><strong>Reviewed By:</strong></span> <span class="text-capitalize"> {{ review.username}} </span></div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-md-4"><span class="review-title "><strong>Author:</strong></span>  <span class="text-capitalize"> {{ review.author}} </span></div>
+            <div class="col-12 col-md-4"><span class="review-title "><strong>Book Title:</strong></span>  <span class="text-capitalize"> {{ review.book_title }}</span></div>
+            <div class="col-12 col-md-4"><span class="review-title" ><strong>Book Category:</strong></span> <i class="{{ review.icon}}" aria-hidden="true"></i> <span class="text-capitalize"> {{ review.category}} </span> </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-12"><span class="review-title text-capitalize"><strong>Book Summary:</strong></span><br><br>{{ review.summary }}
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-12"><a class="btn btn-info" href="#">View Review</a></div>
+        </div>
+    </div>
+</div>
 {% endfor %}
+
 {% endblock %}

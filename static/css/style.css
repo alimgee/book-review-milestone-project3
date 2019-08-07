@@ -63,6 +63,10 @@ body{
 hr{
     border-color: #E8D0A9;
 }
+.fa {
+    color: #E8D0A9;
+    font-size: 1.5rem;
+}
 /* media queries */
 
 @media (min-width: 576px) { 
