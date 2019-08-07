@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, redirect, request, url_for, session, flash
-from flask_pymongo import PyMongo
+from flask_pymongo import PyMongo, pymongo
 
 app = Flask(__name__)
 # passing mongodb uri via environment 
@@ -15,7 +15,7 @@ mongo = PyMongo(app)
 @app.route('/')
 def index(): 
     users=mongo.db.users.find()
-    reviews=mongo.db.reviews.find()
+    reviews=mongo.db.reviews.find().sort('upvote', pymongo.DESCENDING)# sort reviews by popularity (upvote)
     return render_template("index.html", users=users, reviews = reviews)
 
 
