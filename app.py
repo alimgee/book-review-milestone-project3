@@ -8,10 +8,10 @@ app.config["MONGO_DBNAME"] = "booksDB"
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 # passing Secret key via environment 
 app.secret_key = ('SECRET_KEY')
-#creating mongo app
+# creating mongo app
 mongo = PyMongo(app)
 
-# landing route - passing both collections to index.html to test
+# landing page route
 @app.route('/')
 def index(): 
     users=mongo.db.users.find()

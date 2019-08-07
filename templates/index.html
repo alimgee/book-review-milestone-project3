@@ -11,12 +11,13 @@
         </div>
         <hr />
         <div class="row">
-            <div class="col-12"><span class="review-title text-capitalize"><strong>Book Summary:</strong></span><br><br>{{ review.summary }}
-            </div>
+            <div class="col-12"><span class="review-title text-capitalize"><strong>Book Summary:</strong></span><br><br>{{ review.summary }}</div>
+            
         </div>
         <hr />
         <div class="row">
-            <div class="col-12"><a class="btn btn-info" href="#">View Review</a></div>
+            <div class="col-md-10"><a class="btn btn-info" href="#">View Review</a></div>
+            <div class="col-md-2"><span class="review-title">Bites:</span> <span class="upvote">+{{ review.upvote }}</span></div>
         </div>
     </div>
 </div>
