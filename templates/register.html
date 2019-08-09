@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content%}
+
+<div class="card mb-4">
+    <div class="card-header reviewer"><span class="review-title "><strong>Register</strong></span></div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+
+                <form method="POST" action="">
+                    <fieldset class="form-group">
+                        {{ form.username.label(class="form-control-label") }}
+                        {{ form.username }}
+                        {{ form.password.label(class="form-control-label") }}
+                        {{ form.password }}
+                    </fieldset>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
