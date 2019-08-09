@@ -36,6 +36,11 @@ def upvote(id):
     mongo.db.reviews.find_one_and_update({'_id': ObjectId(id)},{'$inc': {'upvote': 1}})
     return redirect(url_for('review', id=id))# run review route to reload review.html
 
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    return render_template('register.html', title='Register', form =form)
+    
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
