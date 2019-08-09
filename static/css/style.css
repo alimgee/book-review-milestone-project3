@@ -60,6 +60,10 @@ body{
     border-color: #E8D0A9;
     font-size: .9rem;
 }
+.btn:hover {
+    background-color: #E8D0A9;
+    border-color: #E8D0A9;
+}
 hr{
     border-color: #E8D0A9;
 }
