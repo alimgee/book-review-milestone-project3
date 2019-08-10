@@ -39,6 +39,9 @@ def upvote(id):
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Register page loaded and submitted' , 'success')
+        return redirect(url_for('index'))
     return render_template('register.html', title='Register', form =form)
     
 

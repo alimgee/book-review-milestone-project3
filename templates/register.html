@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-12">
 
-                <form method="POST" action="">
+                <form method="POST" action="" >
                     {{ form.hidden_tag() }}
                     <fieldset class="form-group">
 
@@ -16,7 +16,7 @@
                             {{ form.username.label(class="form-control-label") }}
                             {% if form.username.errors %}
                             {{ form.username(class="form-control form-control is-invalid") }}
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback">test
                                 {% for error in form.username.errors %}
                                 <span>{{ error }}</span>
                                 {% endfor %}
@@ -33,7 +33,7 @@
                                 {% if form.password.errors %}
                                 {{ form.password(class="form-control form-control is-invalid") }}
                                 <div class="invalid-feedback">
-                                    {% for error in form.username.errors %}
+                                    {% for error in form.password.errors %}
                                     <span>{{ error }}</span>
                                     {% endfor %}
                                 </div>
@@ -49,7 +49,7 @@
                                 {% if form.confirm_password.errors %}
                                 {{ form.confirm_password(class="form-control form-control is-invalid") }}
                                 <div class="invalid-feedback">
-                                    {% for error in form.username.errors %}
+                                    {% for error in form.confirm_password.errors %}
                                     <span>{{ error }}</span>
                                     {% endfor %}
                                 </div>

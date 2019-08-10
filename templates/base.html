@@ -12,8 +12,9 @@
     <title>Welcome to BookBites!</title>
     {% endif %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet"> 
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
     <link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename="img/favicon.ico") }}" />
 
@@ -44,12 +45,22 @@
                 <div class="col-12">
                     <div class="jumbotron jumbotron mt-4">
                         <div class="container">
-                            <h1 class=""> <strong>BookBites</strong> 
+                            <h1 class=""> <strong>BookBites</strong>
                             </h1>
-                            <p class="lead "><strong> Let's hear about your latest reads! <br>Give reviews a bites like! <br>
-                                Even write your own reviews on BookBites.</strong></p>
+                            <p class="lead "><strong> Let's hear about your latest reads! <br>Give reviews a bites like!
+                                    <br>
+                                    Even write your own reviews on BookBites.</strong></p>
                         </div>
                     </div>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                      {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                          {{ message }}
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+                  {% endwith %}
                     {% block content%}{% endblock %}
                 </div>
             </div>
