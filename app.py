@@ -40,8 +40,16 @@ def upvote(id):
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Register page loaded and submitted' , 'success')
-        return redirect(url_for('index'))
+        
+        users = mongo.db.users
+        find_user = users.find_one({'username': request.form['username']})
+        if find_user is None:
+            password = request.form['password']
+            users.insert_one({'name': request.form['username'],
+                             'password': password})
+            flash(f'You have registered as  {form.username.data}' , 'success')
+            return redirect(url_for('index'))
+
     return render_template('register.html', title='Register', form =form)
     
 
