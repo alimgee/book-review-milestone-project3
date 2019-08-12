@@ -45,10 +45,15 @@ def register():
         find_user = users.find_one({'username': request.form['username']})
         if find_user is None:
             password = request.form['password']
-            users.insert_one({'name': request.form['username'],
+            users.insert_one({'username': request.form['username'],
                              'password': password})
-            flash(f'You have registered as  {form.username.data}' , 'success')
+            flash(f'You have registered as  { form.username.data }' , 'success')
+            session['username'] = request.form['username']
+            session['logged'] = True
             return redirect(url_for('index'))
+        else:
+            flash(f'THe username { form.username.data } already exists. Please try a different username' , 'warning')
+            return redirect(url_for('register'))
 
     return render_template('register.html', title='Register', form =form)
     
