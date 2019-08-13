@@ -89,7 +89,8 @@ def login():
         if find_user: # if user is found in db
             password = form.password.data 
             if find_user['password'] == password:# if password entered matches whats in db for paticluar user
-                flash(f'You  are logged in as  { form.username.data }'  , 'success')
+                myreviews_link = Markup(' Go to <a href="/myreviews">My Reviews</a> to view your reviews')
+                flash(f'You  are logged in as  { form.username.data }' + myreviews_link  , 'success')
                 session['username'] = request.form['username'] #create session
                 session['logged'] = True
                 return redirect(url_for('index'))
@@ -130,7 +131,7 @@ def my_reviews():
         flash(f'You need to be logged in to see your reviews' , 'warning')
         return redirect(url_for("login"))
 
-    return render_template('myreviews.html', title='My Reviews' )
+
 
 
 if __name__ == '__main__':
