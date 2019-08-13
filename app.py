@@ -72,28 +72,33 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    '''
+    Function to allow a user to log into site with valid details. Session created on sucessful
+    log in and user notified. User also informed of unsucessful login.
+    '''
     form = LoginForm()
     if 'logged' in session: # if a session currently exists notify user
-        # don't let logged in user register and send to index
+        # don't let logged in user log in again and send to index
         flash(f'You are already logged in on this device as  ' + session['username']  , 'warning')
         return redirect(url_for('index'))
+
     if form.validate_on_submit():
-        # if reigster form passes all validation check if username currently exists
+        # if log in form passes all validation check if username currently exists
         users = mongo.db.users
         find_user = users.find_one({'username': request.form['username']})
-        if find_user:
-            password = form.password.data
-            if find_user['password'] == password:
+        if find_user: # if user is found in db
+            password = form.password.data 
+            if find_user['password'] == password:# if password entered matches whats in db for paticluar user
                 flash(f'You  are logged in as  { form.username.data }'  , 'success')
-
-                return redirect(url_for('index'))
-            else:
-                flash(f'Your password is incorrect. Please log in again with correct details'  , 'warning')
-                session['username'] = request.form['username']
+                session['username'] = request.form['username'] #create session
                 session['logged'] = True
+                return redirect(url_for('index'))
+            else: # if passwords dont match
+                flash(f'Your password is incorrect. Please log in again with correct details'  , 'warning')
+
                 return redirect(url_for('login'))
 
-        else:
+        else: # if user not found in db
             register_link = Markup('<a href="/register">Register</a>')
             flash(f'User "{ form.username.data } " does not exist, please ' + register_link +  
             ' if you do not already have a valid username', 'warning')
