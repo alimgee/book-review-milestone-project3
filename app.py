@@ -36,6 +36,7 @@ def upvote(id):
     mongo.db.reviews.find_one_and_update({'_id': ObjectId(id)},{'$inc': {'upvote': 1}})
     return redirect(url_for('review', id=id))# run review route to reload review.html
 
+    
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -56,10 +57,17 @@ def register():
             session['logged'] = True
             return redirect(url_for('index'))
         else:
-            flash(f'THe username { form.username.data } already exists. Please try a different username' , 'warning')
+            flash(f'The username { form.username.data } already exists. Please try a different username' , 'warning')
             return redirect(url_for('register'))
 
     return render_template('register.html', title='Register', form =form)
+
+@app.route("/sign-out")
+def sign_out():
+    session.clear()
+    flash(f'You are now signed out' , 'success')
+    return redirect(url_for("index"))
+
     
 
 if __name__ == '__main__':
