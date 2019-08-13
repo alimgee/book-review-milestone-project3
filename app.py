@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for, session, flash
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
-from forms import RegistrationForm
+from forms import RegistrationForm, LoginForm
 
 app = Flask(__name__)
 # passing mongodb uri via environment 
@@ -69,6 +69,11 @@ def register():
             return redirect(url_for('register'))
     # load registration form
     return render_template('register.html', title='Register', form =form)
+
+@app.route("/login")
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Login', form =form)
 
 @app.route("/sign-out")
 def sign_out():
