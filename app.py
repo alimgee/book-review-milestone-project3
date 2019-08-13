@@ -117,10 +117,13 @@ def sign_out():
 
 @app.route("/myreviews")
 def my_reviews():
-    if 'logged' in session: # if a session currently exists notify user
-        # don't let logged in user log in again and send to index
+    '''
+    Function to display a 'my reviews' page which displays only the reivews of the
+    logged in user
+    '''
+    if 'logged' in session: # only let a logged in user edit thier own review page
         flash(f'This is your reviews page. View, edit and add your own reviews from here', 'success')
-        current_user = session['username']
+        current_user = session['username'] # setting db username to the current session username
         # return all content from db uploaded by the username in the session
         return render_template("myreviews.html", reviews=mongo.db.reviews.find({'username': current_user}))
     else:
