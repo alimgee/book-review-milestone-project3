@@ -82,13 +82,20 @@ def login():
         users = mongo.db.users
         find_user = users.find_one({'username': request.form['username']})
         if find_user:
-            flash(f'You  are logged in as  { form.username.data }' , 'success')
-            return redirect(url_for('index'))
+            password = form.password.data
+            if find_user['password'] == password:
+                flash(f'You  are logged in as  { form.username.data }'  , 'success')
+                return redirect(url_for('index'))
+            else:
+                flash(f'Your password is incorrect. Please log in again with correct details'  , 'warning')
+                return redirect(url_for('login'))
+
         else:
             register_link = Markup('<a href="/register">Register</a>')
             flash(f'User "{ form.username.data } " does not exist, please ' + register_link +  
             ' if you do not already have a valid username', 'warning')
             return redirect(url_for('login'))
+
     return render_template('login.html', title='Login', form =form)
 
 @app.route("/sign-out")
