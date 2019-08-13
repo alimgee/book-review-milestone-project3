@@ -39,6 +39,10 @@ def upvote(id):
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
+    if 'logged' in session:
+        flash(f'You are already logged in on this device as  ' + session['username']  , 'warning')
+        return redirect(url_for('index'))
+
     if form.validate_on_submit():
         
         users = mongo.db.users
