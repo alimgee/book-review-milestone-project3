@@ -115,7 +115,20 @@ def sign_out():
     flash(f'You are now signed out' , 'success')
     return redirect(url_for("index"))
 
-    
+@app.route("/myreviews")
+def my_reviews():
+    if 'logged' in session: # if a session currently exists notify user
+        # don't let logged in user log in again and send to index
+        flash(f'This is your reviews page. View, edit and add your own reviews from here', 'success')
+        current_user = session['username']
+        # return all content from db uploaded by the username in the session
+        return render_template("myreviews.html", reviews=mongo.db.reviews.find({'username': current_user}))
+    else:
+        flash(f'You need to be logged in to see your reviews' , 'warning')
+        return redirect(url_for("login"))
+
+    return render_template('myreviews.html', title='My Reviews' )
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
