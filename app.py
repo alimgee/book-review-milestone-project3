@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, session, flash
+from flask import Flask, render_template, redirect, request, url_for, session, flash, Markup
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
 from forms import RegistrationForm, LoginForm
@@ -70,9 +70,25 @@ def register():
     # load registration form
     return render_template('register.html', title='Register', form =form)
 
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    if 'logged' in session: # if a session currently exists notify user
+        # don't let logged in user register and send to index
+        flash(f'You are already logged in on this device as  ' + session['username']  , 'warning')
+        return redirect(url_for('index'))
+    if form.validate_on_submit():
+        # if reigster form passes all validation check if username currently exists
+        users = mongo.db.users
+        find_user = users.find_one({'username': request.form['username']})
+        if find_user:
+            flash(f'You  are logged in as  { form.username.data }' , 'success')
+            return redirect(url_for('index'))
+        else:
+            register_link = Markup('<a href="/register">Register</a>')
+            flash(f'User "{ form.username.data } " does not exist, please ' + register_link +  
+            ' if you do not already have a valid username', 'warning')
+            return redirect(url_for('login'))
     return render_template('login.html', title='Login', form =form)
 
 @app.route("/sign-out")
