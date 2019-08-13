@@ -85,9 +85,12 @@ def login():
             password = form.password.data
             if find_user['password'] == password:
                 flash(f'You  are logged in as  { form.username.data }'  , 'success')
+
                 return redirect(url_for('index'))
             else:
                 flash(f'Your password is incorrect. Please log in again with correct details'  , 'warning')
+                session['username'] = request.form['username']
+                session['logged'] = True
                 return redirect(url_for('login'))
 
         else:
