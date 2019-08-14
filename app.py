@@ -134,7 +134,10 @@ def my_reviews():
         return redirect(url_for("login"))
 
 @app.route("/addreview")
-def add_review():
+def add_review()
+    '''
+    Function to display a page which displays a form to add a review for logged in user
+    '''
     return render_template("addreview.html")
 
 
