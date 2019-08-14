@@ -142,15 +142,17 @@ def add_review():
     if form.validate_on_submit():
         reviews = mongo.db.reviews
         amazon_link = create_amazon_search(request.form['book'])
-
+        icon = get_icon_class(request.form['genre'])
+        
         reviews.insert_one({'author': request.form['author'],
                             'book_title': request.form['book'],
                             'summary': request.form['summary'],
                             'review': request.form['review'],
                             'category': request.form['genre'],
                             'amazon': amazon_link,
+                            'icon' : icon
                                  })
-        flash(f'Review added ' + amazon_link , 'success')
+        flash(f'Review added ' , 'success')
         return redirect(url_for('index'))
 
     
@@ -163,7 +165,17 @@ def create_amazon_search(book):
     amazonlink += book
     return amazonlink
 
-
+def get_icon_class(cat):
+    icons = { 
+        'factual' : 'fa fa-picture-o',
+        'fiction' : 'fa fa-picture-o',
+        'health' : 'fa fa-heartbeat',
+        'nature' : 'fa fa-leaf',
+        'science' : 'fa fa-cogs',
+        'sport' : 'fa fa-futbo-o',
+        'world history' : 'fa fa-globe',
+        } 
+    return icons[cat]
    
 
 if __name__ == '__main__':
