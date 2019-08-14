@@ -139,8 +139,22 @@ def add_review():
     Function to display a page which displays a form to add a review for logged in user
     '''
     form = AddReviewForm()
+    if form.validate_on_submit():
+        reviews = mongo.db.reviews
+        reviews.insert_one({'author': request.form['author'],
+                            'book_title': request.form['book'],
+                            'summary': request.form['summary'],
+                            'review': request.form['review'],
+                            'icon': request.form['genre']
+                                 })
+        flash(f'Review added ', 'success')
+        return redirect(url_for('index'))
+
+    
     return render_template("addreview.html", form = form, title = 'Add Review')
 
+
+   
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
