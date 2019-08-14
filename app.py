@@ -65,7 +65,8 @@ def register():
             return redirect(url_for('index'))
         else:
             # if username already exists in db, notify user and reload register template
-            flash(f'The username { form.username.data } already exists. Please try a different username' , 'warning')
+            flash(f'The username { form.username.data } already exists. Please try a different username' ,
+             'warning')
             return redirect(url_for('register'))
     # load registration form
     return render_template('register.html', title='Register', form =form)
@@ -126,12 +127,15 @@ def my_reviews():
         flash(f'This is your reviews page. View, edit and add your own reviews from here', 'success')
         current_user = session['username'] # setting db username to the current session username
         # return all content from db uploaded by the username in the session
-        return render_template("myreviews.html", reviews=mongo.db.reviews.find({'username': current_user}))
-    else:
+        return render_template("myreviews.html",  reviews=mongo.db.reviews.find({'username': current_user}),
+                                 title='My Reviews')
+    else: # if user is not logged in
         flash(f'You need to be logged in to see your reviews' , 'warning')
         return redirect(url_for("login"))
 
-
+@app.route("/addreview")
+def add_review():
+    return render_template("addreview.html")
 
 
 if __name__ == '__main__':
