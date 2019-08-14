@@ -141,17 +141,27 @@ def add_review():
     form = AddReviewForm()
     if form.validate_on_submit():
         reviews = mongo.db.reviews
+        amazon_link = create_amazon_search(request.form['book'])
+
         reviews.insert_one({'author': request.form['author'],
                             'book_title': request.form['book'],
                             'summary': request.form['summary'],
                             'review': request.form['review'],
-                            'icon': request.form['genre']
+                            'icon': request.form['genre'],
+                            'amazon': amazon_link,
                                  })
-        flash(f'Review added ', 'success')
+        flash(f'Review added ' + amazon_link , 'success')
         return redirect(url_for('index'))
 
     
     return render_template("addreview.html", form = form, title = 'Add Review')
+
+def create_amazon_search(book):
+    amazonlink = "https://www.amazon.com/s?i=stripbooks-intl-ship&k="
+    while ' ' in book:
+        book = book.replace(' ', '+')
+    amazonlink += book
+    return amazonlink
 
 
    
