@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for, session, flash, Markup
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, AddReviewForm
 
 app = Flask(__name__)
 # passing mongodb uri via environment 
@@ -133,12 +133,13 @@ def my_reviews():
         flash(f'You need to be logged in to see your reviews' , 'warning')
         return redirect(url_for("login"))
 
-@app.route("/addreview")
-def add_review()
+@app.route("/addreview", methods=['GET', 'POST'])
+def add_review():
     '''
     Function to display a page which displays a form to add a review for logged in user
     '''
-    return render_template("addreview.html")
+    form = AddReviewForm()
+    return render_template("addreview.html", form = form, title = 'Add Review')
 
 
 if __name__ == '__main__':
