@@ -147,7 +147,7 @@ def add_review():
                             'book_title': request.form['book'],
                             'summary': request.form['summary'],
                             'review': request.form['review'],
-                            'icon': request.form['genre'],
+                            'category': request.form['genre'],
                             'amazon': amazon_link,
                                  })
         flash(f'Review added ' + amazon_link , 'success')
