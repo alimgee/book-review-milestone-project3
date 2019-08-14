@@ -19,9 +19,9 @@
         </div>
         <hr />
         <div class="row">           
-            <div class="col-md-6"><span class="review-title">Bites:</span> <span class="upvote">+{{ review.upvote }}</span> <a href="{{ url_for('upvote', id=review._id ) }} " > <i class="fa fa-book" aria-hidden="true"></i> </a><span class="small">click to add a BookBite</span>
+            <div class="col-md-6 mb-2"><span class="review-title">Bites:</span> <span class="upvote">+{{ review.upvote }}</span> <a href="{{ url_for('upvote', id=review._id ) }} " > <i class="fa fa-book" aria-hidden="true"></i> </a><span class="small">click to add a BookBite</span>
             </div>
-            <div class="col-md-6"><a href="{{ review.amazon }} " class="btn btn-info" target = "_blank"  > Search Amazon </a>
+            <div class="col-md-6 mb-2"><a href="{{ review.amazon }} " class="btn btn-info" target = "_blank"  > Search Amazon </a>
             </div>
         </div>
     </div>
