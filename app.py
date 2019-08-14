@@ -138,6 +138,11 @@ def add_review():
     '''
     Function to display a page which displays a form to add a review for logged in user
     '''
+    if 'logged' not in session: # if a session currently exists notify user
+        # don't let logged in user register and send to index
+        flash(f'You need to log in to add a review' , 'sucess')
+        return redirect(url_for("login"))
+
     form = AddReviewForm()
     if form.validate_on_submit():
         reviews = mongo.db.reviews
@@ -150,7 +155,8 @@ def add_review():
                             'review': request.form['review'],
                             'category': request.form['genre'],
                             'amazon': amazon_link,
-                            'icon' : icon
+                            'icon' : icon,
+                            'upvote' : 0
                                  })
         flash(f'Review added ' , 'success')
         return redirect(url_for('index'))
