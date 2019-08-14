@@ -138,17 +138,18 @@ def add_review():
     '''
     Function to display a page which displays a form to add a review for logged in user
     '''
-    if 'logged' not in session: # if a session currently exists notify user
-        # don't let logged in user register and send to index
+    if 'logged' not in session: # if a user trys to go to add review without been logged in
         flash(f'You need to log in to add a review' , 'warning')
-        return redirect(url_for("login"))
+        return redirect(url_for("login")) # sending to log in
 
     form = AddReviewForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit(): # if form submits successfully
         reviews = mongo.db.reviews
-        amazon_link = create_amazon_search(request.form['book'])
-        icon = get_icon_class(request.form['genre'])
+
+        amazon_link = create_amazon_search(request.form['book']) # creating amazon link
+        icon = get_icon_class(request.form['genre']) # creating icon font awesome class
         
+        # add form content to db as a new record
         reviews.insert_one({'author': request.form['author'],
                             'book_title': request.form['book'],
                             'summary': request.form['summary'],
@@ -159,20 +160,28 @@ def add_review():
                             'upvote' : 0,
                             'username' :  session['username']
                                  })
-        flash(f'Review added ' , 'success')
-        return redirect(url_for('index'))
-
-    
+        flash(f'Review added ' , 'success') #send to my reviews template on successful add
+        return redirect(url_for('my_reviews'))
+   
     return render_template("addreview.html", form = form, title = 'Add Review')
 
 def create_amazon_search(book):
+    '''
+    function to build an amazon search link based on the book title entered by the user
+    '''
     amazonlink = "https://www.amazon.com/s?i=stripbooks-intl-ship&k="
-    while ' ' in book:
+    while ' ' in book: # replace spaces with +
         book = book.replace(' ', '+')
     amazonlink += book
-    return amazonlink
+
+    return amazonlink # returning newly built link
 
 def get_icon_class(cat):
+    '''
+    function to check the review category assign by the user and to return
+    the relevant font awesome icon classes based on the category sent in
+    '''
+    # dict of categorys -  modify this and the AddReviewForm class in forms.py to add new categorys
     icons = { 
         'factual' : 'fa fa-picture-o',
         'fiction' : 'fa fa-picture-o',
@@ -182,7 +191,7 @@ def get_icon_class(cat):
         'sport' : 'fa fa-futbo-o',
         'world history' : 'fa fa-globe',
         } 
-    return icons[cat]
+    return icons[cat] # returning relevant classes
    
 
 if __name__ == '__main__':
