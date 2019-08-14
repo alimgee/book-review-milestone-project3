@@ -140,7 +140,7 @@ def add_review():
     '''
     if 'logged' not in session: # if a session currently exists notify user
         # don't let logged in user register and send to index
-        flash(f'You need to log in to add a review' , 'sucess')
+        flash(f'You need to log in to add a review' , 'warning')
         return redirect(url_for("login"))
 
     form = AddReviewForm()
@@ -156,7 +156,8 @@ def add_review():
                             'category': request.form['genre'],
                             'amazon': amazon_link,
                             'icon' : icon,
-                            'upvote' : 0
+                            'upvote' : 0,
+                            'username' :  session['username']
                                  })
         flash(f'Review added ' , 'success')
         return redirect(url_for('index'))
