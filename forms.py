@@ -14,11 +14,11 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Log in Now')
 
 class ReviewForm(FlaskForm):
-    author = StringField('Author' , validators =[DataRequired() , Length(min=2, max =40)])
-    book_title = StringField('Book Title' , validators =[DataRequired() , Length(min=1, max =50)])
+    author = StringField('Author' , validators =[DataRequired() , Length(min=2, max =80)])
+    book_title = StringField('Book Title' , validators =[DataRequired() , Length(min=1, max =150)])
     summary = TextAreaField('Book Bite Summary (200 char)' , validators =[DataRequired() , Length(min=2, max =200)])
     review = TextAreaField('Book Bite Review (1500 char)' , validators =[DataRequired() , Length(min=2, max =1500)])
-    genre = SelectField(u'Genre', choices=[ ('factual', 'Fact'), ('fiction', 'Fiction'), ('health', 'Health'),
+    category = SelectField(u'Genre', choices=[ ('factual', 'Fact'), ('fiction', 'Fiction'), ('health', 'Health'),
     ('nature', 'Nature'), ('science', 'Science'),('sport', 'Sport'), ('history', 'World History')  ])
     submit_add = SubmitField('Add Review')
     submit_edit = SubmitField('Update Review')

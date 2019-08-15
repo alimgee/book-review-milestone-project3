@@ -146,15 +146,15 @@ def add_review():
     if form.validate_on_submit(): # if form submits successfully
         reviews = mongo.db.reviews
 
-        amazon_link = create_amazon_search(request.form['book']) # creating amazon link
-        icon = get_icon_class(request.form['genre']) # creating icon font awesome class
+        amazon_link = create_amazon_search(request.form['book_title']) # creating amazon link
+        icon = get_icon_class(request.form['category']) # creating icon font awesome class
         
         # add form content to db as a new record
         reviews.insert_one({'author': request.form['author'],
                             'book_title': request.form['book_title'],
                             'summary': request.form['summary'],
                             'review': request.form['review'],
-                            'category': request.form['genre'],
+                            'category': request.form['category'],
                             'amazon': amazon_link,
                             'icon' : icon,
                             'upvote' : 0,
@@ -175,12 +175,37 @@ def edit_review(id):
         return redirect(url_for("login")) # sending to log in
 
     one_review = mongo.db.reviews.find_one({"_id": ObjectId(id)}) # retrieving record from db
+   
+    
     # if a user trys to go to edit review without been logged that they don't own
     if one_review['username'] !=  session['username']:
         flash(f'You do  not own this review and cannot edit it. ' , 'warning')
         return redirect(url_for("login")) # sending to log in
 
     form = ReviewForm(data =  one_review)
+    
+
+    if form.validate_on_submit(): # if form submits successfully
+        reviews = mongo.db.reviews
+        
+
+        amazon_link = create_amazon_search(request.form['book_title']) # creating amazon link
+        icon = get_icon_class(request.form['category']) # creating icon font awesome class
+        
+        # add form content to db as a new record
+        
+        reviews.update_one({'_id': ObjectId(id), } , { '$set' : {
+                            'author': request.form['author'],
+                            'book_title': request.form['book_title'],
+                            'summary': request.form['summary'],
+                            'review': request.form['review'],
+                            'category': request.form['category'],
+                            'amazon': amazon_link,
+                            'icon' : icon,
+                            }
+                            })
+        flash(f'Review Updated ' , 'success') #send to my review template on successful addupdate
+        return redirect(url_for('review', id = id))
 
      
     return render_template("editreview.html", form = form, title = 'Edit a  Review')
