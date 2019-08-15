@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for, session, flash, Markup
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
-from forms import RegistrationForm, LoginForm, AddReviewForm
+from forms import RegistrationForm, LoginForm, ReviewForm
 
 app = Flask(__name__)
 # passing mongodb uri via environment 
@@ -142,7 +142,7 @@ def add_review():
         flash(f'You need to log in to add a review' , 'warning')
         return redirect(url_for("login")) # sending to log in
 
-    form = AddReviewForm()
+    form = ReviewForm()
     if form.validate_on_submit(): # if form submits successfully
         reviews = mongo.db.reviews
 
@@ -164,6 +164,18 @@ def add_review():
         return redirect(url_for('my_reviews'))
    
     return render_template("addreview.html", form = form, title = 'Add Review')
+
+@app.route("/editreview/<id>", methods=['GET', 'POST'])
+def add_review():
+    '''
+    Function to display a page which displays a form to edit a review for logged in user
+    '''    
+    one_review = mongo.db.reviews.find_one({"_id": ObjectId(id)})
+    form = ReviewForm(data =  one_review)
+
+     
+    return render_template("editreview.html", form = form, title = 'Edit a  Review')
+
 
 def create_amazon_search(book):
     '''
