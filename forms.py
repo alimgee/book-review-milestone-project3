@@ -21,4 +21,4 @@ class ReviewForm(FlaskForm):
     genre = SelectField(u'Genre', choices=[ ('factual', 'Fact'), ('fiction', 'Fiction'), ('health', 'Health'),
     ('nature', 'Nature'), ('science', 'Science'),('sport', 'Sport'), ('history', 'World History')  ])
     submit_add = SubmitField('Add Review')
-    submit_edit = SubmitField('Edit Review')
+    submit_edit = SubmitField('Update Review')
