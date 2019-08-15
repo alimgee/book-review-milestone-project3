@@ -151,7 +151,7 @@ def add_review():
         
         # add form content to db as a new record
         reviews.insert_one({'author': request.form['author'],
-                            'book_title': request.form['book'],
+                            'book_title': request.form['book_title'],
                             'summary': request.form['summary'],
                             'review': request.form['review'],
                             'category': request.form['genre'],
@@ -166,11 +166,12 @@ def add_review():
     return render_template("addreview.html", form = form, title = 'Add Review')
 
 @app.route("/editreview/<id>", methods=['GET', 'POST'])
-def add_review():
+def edit_review(id):
     '''
     Function to display a page which displays a form to edit a review for logged in user
     '''    
     one_review = mongo.db.reviews.find_one({"_id": ObjectId(id)})
+   
     form = ReviewForm(data =  one_review)
 
      

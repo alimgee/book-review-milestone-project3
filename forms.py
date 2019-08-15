@@ -15,7 +15,7 @@ class LoginForm(FlaskForm):
 
 class ReviewForm(FlaskForm):
     author = StringField('Author' , validators =[DataRequired() , Length(min=2, max =40)])
-    book = StringField('Book Title' , validators =[DataRequired() , Length(min=1, max =50)])
+    book_title = StringField('Book Title' , validators =[DataRequired() , Length(min=1, max =50)])
     summary = TextAreaField('Book Bite Summary (200 char)' , validators =[DataRequired() , Length(min=2, max =200)])
     review = TextAreaField('Book Bite Review (1500 char)' , validators =[DataRequired() , Length(min=2, max =1500)])
     genre = SelectField(u'Genre', choices=[ ('factual', 'Fact'), ('fiction', 'Fiction'), ('health', 'Health'),
