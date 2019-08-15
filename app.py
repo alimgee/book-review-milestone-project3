@@ -170,8 +170,16 @@ def edit_review(id):
     '''
     Function to display a page which displays a form to edit a review for logged in user
     '''    
-    one_review = mongo.db.reviews.find_one({"_id": ObjectId(id)})
-   
+    if 'logged' not in session: # if a user trys to go to edit review without been logged in
+        flash(f'You need to log in to edit a review' , 'warning')
+        return redirect(url_for("login")) # sending to log in
+
+    one_review = mongo.db.reviews.find_one({"_id": ObjectId(id)}) # retrieving record from db
+    # if a user trys to go to edit review without been logged that they don't own
+    if one_review['username'] !=  session['username']:
+        flash(f'You do  not own this review and cannot edit it. ' , 'warning')
+        return redirect(url_for("login")) # sending to log in
+
     form = ReviewForm(data =  one_review)
 
      
