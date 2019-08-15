@@ -20,4 +20,5 @@ class ReviewForm(FlaskForm):
     review = TextAreaField('Book Bite Review (1500 char)' , validators =[DataRequired() , Length(min=2, max =1500)])
     genre = SelectField(u'Genre', choices=[ ('factual', 'Fact'), ('fiction', 'Fiction'), ('health', 'Health'),
     ('nature', 'Nature'), ('science', 'Science'),('sport', 'Sport'), ('history', 'World History')  ])
-    submit = SubmitField('Add review')
+    submit_add = SubmitField('Add Review')
+    submit_edit = SubmitField('Edit Review')
