@@ -40,6 +40,17 @@ body{
     margin-right: 8%;
 }
 
+.searchbar{
+   
+    background: transparent;
+    border-radius: .3rem;
+    color: #F5FAFA    
+}
+.searchbutton{
+    opacity: .7;
+    border-radius: .3rem;    
+}
+
 /* card styling */
 .card{
     color: #6D929B;
