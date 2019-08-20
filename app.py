@@ -238,6 +238,7 @@ def search():
         # searching db for the select category in filter scount_docearch
         find_reviews = mongo.db.reviews.find({'category' : {'$regex' : category }})
         count_doc = find_reviews.count()
+
         if count_doc == 0 :
 
             flash(f'There are no reviews currently in the ' + category + ' category', 'warning')
@@ -248,10 +249,9 @@ def search():
         
     # running find on contents of search box using the multifield text search
     find_reviews = mongo.db.reviews.find({"$text": {"$search": search}})
-    count_doc = find_reviews.count()
-    if search != "":   
-        flash(f'Search results for ' + ' ' + search  , 'success')
-        return render_template("index.html", title = 'Search', reviews = find_reviews)
+    
+    flash(f'Search results for ' + ' ' + search  , 'success')
+    return render_template("index.html", title = 'Search', reviews = find_reviews)
 
 
 def create_amazon_search(book):
