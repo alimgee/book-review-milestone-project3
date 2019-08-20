@@ -53,12 +53,25 @@
                                     <br>
                                     Even write your own reviews on BookBites.</strong></p>
                         </div>
-                        <div class="mt-4 text-right" >
+                        <div class="mt-4 ml-4" ><br>
                             
                             <form class="form-inline" action="{{ (url_for('search')) }}">
                                 <div class="form-group ">
-                                    <input class="form-control-sm mr-1 searchbar" type="text" placeholder="Search Site" name="search">
-                                    <button class="btn btn-sm btn-info mr-1 searchbutton" type="submit">Search!</button>
+                                        
+
+                                    <input class="form-control-sm mr-1 searchbar small" type="text" placeholder="Search Site" name="search">
+                                    <button class="  mr-1 searchbar small mr-1" type="submit">Go!</button>
+                                </div>
+                                <div class="form-group ">
+                                        <label for="category" class="small mr-2">Filter By: </label>
+                                        <select class="form-control-sm  mr-1 searchbar small" id="category">
+                                        <option>none</option>
+                                          <option>fact</option>
+                                          <option>fiction</option>
+                                          <option>science</option>
+                                          <option>health</option>
+                                        </select>
+                                    
                                 </div>
                             </form>
                         </div>
