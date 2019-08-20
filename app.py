@@ -222,12 +222,19 @@ def search():
     '''
     # passing contents of search field to search variable
     search = request.args['search']
+    category = request.args['category']
+    if search == "" and category != "none":
+        flash(f'Results showing ' +category +' reviews only ', 'success')
+        # searching db for the select category in filter search
+        find_reviews = mongo.db.reviews.find({'category' : {'$regex' : category }})
+        return render_template("index.html", title = 'Search', reviews = find_reviews)
+        
     # running find on contents of search box using the multifield text search
     find_reviews = mongo.db.reviews.find({"$text": {"$search": search}})
     if search != "":
         flash(f'Search results for ' + ' ' + search , 'success')
     else:# if search field is empty when clicked
-        flash(f'You entered nothing in the search box', 'warning')
+        flash(f'You entered nothing in the search box' + category , 'warning')
         return redirect(url_for("index")) # sending to landing page 
     
 
