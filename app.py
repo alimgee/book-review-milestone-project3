@@ -223,22 +223,35 @@ def search():
     # passing contents of search field to search variable
     search = request.args['search']
     category = request.args['category']
-    if search == "" and category != "none":
+    #count_doc = mongo.db.reviews.count_documents({'category' : category})
+
+    if search != "" and category != "none": # checking for both search and filter been attempted at the same time
+        flash(f'Search cannot check site search and filter category at the same time' , 'warning')
+        return redirect(url_for("index"))
+
+    if search == "" and category == "none": # checking if user has not entered text into search or used filter
+        flash(f'You have not selected a category or enterd text into the search field' , 'warning')
+        return redirect(url_for("index"))
+
+    if search == "" and category != "none": # checking for just filter selection
         flash(f'Results showing ' +category +' reviews only ', 'success')
-        # searching db for the select category in filter search
+        # searching db for the select category in filter scount_docearch
         find_reviews = mongo.db.reviews.find({'category' : {'$regex' : category }})
+        count_doc = find_reviews.count()
+        if count_doc == 0 :
+
+            flash(f'There are no reviews currently in the ' + category + ' category', 'warning')
+            return redirect(url_for("index"))
+            
         return render_template("index.html", title = 'Search', reviews = find_reviews)
+        
         
     # running find on contents of search box using the multifield text search
     find_reviews = mongo.db.reviews.find({"$text": {"$search": search}})
-    if search != "":
-        flash(f'Search results for ' + ' ' + search , 'success')
-    else:# if search field is empty when clicked
-        flash(f'You entered nothing in the search box' + category , 'warning')
-        return redirect(url_for("index")) # sending to landing page 
-    
-
-    return render_template("index.html", title = 'Search', reviews = find_reviews)
+    count_doc = find_reviews.count()
+    if search != "":   
+        flash(f'Search results for ' + ' ' + search  , 'success')
+        return render_template("index.html", title = 'Search', reviews = find_reviews)
 
 
 def create_amazon_search(book):
