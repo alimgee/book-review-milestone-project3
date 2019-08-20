@@ -54,9 +54,10 @@
                                     Even write your own reviews on BookBites.</strong></p>
                         </div>
                         <div class="mt-4 text-right" >
-                            <form class="form-inline" action="">
+                            
+                            <form class="form-inline" action="{{ (url_for('search')) }}">
                                 <div class="form-group ">
-                                    <input class="form-control-sm mr-1 searchbar" type="text" placeholder="Search Site">
+                                    <input class="form-control-sm mr-1 searchbar" type="text" placeholder="Search Site" name="search">
                                     <button class="btn btn-sm btn-info mr-1 searchbutton" type="submit">Search!</button>
                                 </div>
                             </form>

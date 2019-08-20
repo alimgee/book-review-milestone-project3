@@ -1,4 +1,5 @@
 import os
+import re
 from flask import Flask, render_template, redirect, request, url_for, session, flash, Markup
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
@@ -14,7 +15,7 @@ app.secret_key = ('SECRET_KEY')
 mongo = PyMongo(app)
 
 # landing page route
-@app.route('/')
+@app.route('/' , methods=['GET', 'POST'])
 def index():
     ''' function to display all records on the landing page''' 
     # sort reviews by popularity (upvote)
@@ -209,6 +210,28 @@ def edit_review(id):
 
      
     return render_template("editreview.html", form = form, title = 'Edit a  Review')
+
+
+
+@app.route("/search", methods=['GET', 'POST'])
+def search():
+    '''
+    Function to allow a full text search of the db. Created an index on mongo db in atlas
+    to allow a full text search of all string fields using ( { "$**": "text" } ) as the 
+    index settings
+    '''
+    # passing contents of search field to search variable
+    search = request.args['search']
+    # running find on contents of search box using the multifield text search
+    find_reviews = mongo.db.reviews.find({"$text": {"$search": search}})
+    if search != "":
+        flash(f'Search results for ' + ' ' + search , 'success')
+    else:# if search field is empty when clicked
+        flash(f'You entered nothing in the search box', 'warning')
+        return redirect(url_for("index")) # sending to landing page 
+    
+
+    return render_template("index.html", title = 'Search', reviews = find_reviews)
 
 
 def create_amazon_search(book):
