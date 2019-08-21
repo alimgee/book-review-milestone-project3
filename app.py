@@ -229,10 +229,10 @@ def search():
         find_reviews = mongo.db.reviews.find( { '$and': [ {'$text': {'$search': search}}, { 'category' : category } ]})
         count_doc = mongo.db.reviews.count_documents( { '$and': [ {'$text': {'$search': search}}, { 'category' : category } ]})
         if count_doc == 0 : # if no records found for category selection and site search
-            flash(f'There are no reviews currently in the ' + category + ' category using ' + search + ' in the site search', 'warning')
+            flash(f'There are no reviews currently in the "' + category.title() + '" category using "' + search + '" as the site search', 'warning')
             return redirect(url_for("index"))
 
-        flash(f'Search Results for '+search +' filtered by ' + category + ' category'  , 'success')       
+        flash(f'Search Results for "'+search +'" filtered by "' + category.title() + '" category'  , 'success')       
         return render_template("index.html", title = 'Search', reviews = find_reviews)
         
 
@@ -246,16 +246,20 @@ def search():
         count_doc = mongo.db.reviews.count_documents({'category' : {'$regex' : category }})
 
         if count_doc == 0 : # if no records found for category selection
-            flash(f'There are no reviews currently in the ' + category + ' category', 'warning')
+            flash(f'There are no reviews currently in the "' + category.title() + '" category', 'warning')
             return redirect(url_for("index"))
         
-        flash(f'Results showing ' +category +' reviews only ', 'success')            
+        flash(f'Results showing "' +category.title() +'" reviews only ', 'success')            
         return render_template("index.html", title = 'Search', reviews = find_reviews)
         
     elif search != "" and category == "none": # checking for just search text entry :   
         # running find on contents of search box using the multifield text search
-        find_reviews = mongo.db.reviews.find({"$text": {"$search": search}})    
-        flash(f'Search results for ' + ' ' + search  , 'success')
+        find_reviews = mongo.db.reviews.find({"$text": {"$search": search}}) 
+        count_doc = mongo.db.reviews.count_documents({"$text": {"$search": search}} )
+        if count_doc == 0 : # if no records found for site search
+            flash(f'There are no search results for "' + search + '" in the site search', 'warning')
+            return redirect(url_for("index"))   
+        flash(f'Search results for "'  + search +'"' , 'success')
         return render_template("index.html", title = 'Search', reviews = find_reviews)
 
 @app.errorhandler(400)
