@@ -255,8 +255,9 @@ def search():
             return redirect(url_for("index"))
         
         flash(f'Search Results for "'+search +'" filtered by "' + category.title() + '" category'  , 'success')       
-        return render_template("index.html", title = 'Search', reviews = find_reviews, total =total, page_limit = page_limit, 
-                                current_page = current_page, offset =offset, max_pages = max_pages, page_range = page_range)
+        return render_template("search.html", title = 'Search', reviews = find_reviews, total =total, page_limit = page_limit, 
+                                current_page = current_page, offset =offset, max_pages = max_pages, page_range = page_range, 
+                                search = search, category = category)
         
 
     elif search == "" and category == "none": # checking if user has not entered text into search or used filter
@@ -283,8 +284,9 @@ def search():
             return redirect(url_for("index"))
         
         flash(f'Results showing "' +category.title() +'" reviews only ', 'success')            
-        return render_template("index.html", title = 'Search', reviews = find_reviews, total =total, page_limit = page_limit, 
-                                current_page = current_page, offset =offset, max_pages = max_pages, page_range = page_range)
+        return render_template("search.html", title = 'Search', reviews = find_reviews, total =total, page_limit = page_limit, 
+                                current_page = current_page, offset =offset, max_pages = max_pages, page_range = page_range, 
+                                search = search, category = category)
         
     elif search != "" and category == "none": # checking for just search text entry 
         # pagination section
@@ -300,11 +302,12 @@ def search():
         find_reviews = mongo.db.reviews.find({"$text": {"$search": search}}).limit(page_limit).skip(offset)
         count_doc = mongo.db.reviews.count_documents({"$text": {"$search": search}} )
         if count_doc == 0 : # if no records found for site search
-            flash(f'There are no search results for "' + search + '" in the site search', 'warning')
+            flash(f'There are no search results for "' + search + '" in the site search. Please try a different search, or combination of words if using small regular words such as "the" or "on"', 'warning')
             return redirect(url_for("index"))   
         flash(f'Search results for "'  + search +'"' , 'success')
-        return render_template("index.html", title = 'Search', reviews = find_reviews, total =total, page_limit = page_limit, 
-                                current_page = current_page, offset =offset, max_pages = max_pages, page_range = page_range)
+        return render_template("search.html", title = 'Search', reviews = find_reviews, total =total, page_limit = page_limit, 
+                                current_page = current_page, offset =offset, max_pages = max_pages, page_range = page_range, 
+                                search = search, category = category)
 
 @app.errorhandler(400)
 def bad_request(e):
