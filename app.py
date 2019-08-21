@@ -258,6 +258,10 @@ def search():
         flash(f'Search results for ' + ' ' + search  , 'success')
         return render_template("index.html", title = 'Search', reviews = find_reviews)
 
+@app.errorhandler(400)
+def bad_request(e):
+    """Route for handling 400 errors"""
+    return render_template('400.html', title="Bad request!")
 
 def create_amazon_search(book):
     '''
