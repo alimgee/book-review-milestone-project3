@@ -25,7 +25,7 @@ def index():
     # pagination section
 
     total = mongo.db.reviews.count_documents({}) #total records in reviews db
-    # setsting the current page of pagination and also resets value of page when passed back through user interaction
+    # setting the current page of pagination and also resets value of page when passed back through user interaction
     current_page = int(request.args.get('current_page', 1))
     offset = int(request.args.get('offset', 0)) # setting offset initially to 0 (position in db for current page)
     max_pages = int(math.ceil(total /page_limit)) # calculating max pages needed to display all records
@@ -237,26 +237,45 @@ def search():
     # passing contents of search field to search variable
     search = request.args['search']
     category = request.args['category']
-    #count_doc = mongo.db.reviews.count_documents({'category' : category})
 
     if search != "" and category != "none": # checking for both search and filter been attempted at the same time
-        find_reviews = mongo.db.reviews.find( { '$and': [ {'$text': {'$search': search}}, { 'category' : category } ]})
+        # pagination section
+
+        total = mongo.db.reviews.count_documents({'$and': [ {'$text': {'$search': search}}, { 'category' : category } ]}) #total records in query
+        # setting the current page of pagination and also resets value of page when passed back through user interaction
+        current_page = int(request.args.get('current_page', 1))
+        offset = int(request.args.get('offset', 0)) # setting offset initially to 0 (position in db for current page)
+        max_pages = int(math.ceil(total /page_limit)) # calculating max pages needed to display all records
+        page_range = (1, max_pages) # creating a tuple with the page range in it 
+
+        find_reviews = mongo.db.reviews.find( { '$and': [ {'$text': {'$search': search}}, { 'category' : category } ]}).limit(page_limit).skip(offset)
         count_doc = mongo.db.reviews.count_documents( { '$and': [ {'$text': {'$search': search}}, { 'category' : category } ]})
         if count_doc == 0 : # if no records found for category selection and site search
             flash(f'There are no reviews currently in the "' + category.title() + '" category using "' + search + '" as the site search', 'warning')
             return redirect(url_for("index"))
-
+        
         flash(f'Search Results for "'+search +'" filtered by "' + category.title() + '" category'  , 'success')       
-        return render_template("index.html", title = 'Search', reviews = find_reviews)
+        return render_template("index.html", title = 'Search', reviews = find_reviews, total =total, page_limit = page_limit, 
+                                current_page = current_page, offset =offset, max_pages = max_pages, page_range = page_range)
         
 
     elif search == "" and category == "none": # checking if user has not entered text into search or used filter
         flash(f'You have not selected a category or enterd text into the search field' , 'warning')
         return redirect(url_for("index"))
 
-    elif search == "" and category != "none": # checking for just filter selection      
-        # searching db for the select category in filter scount_docearch
-        find_reviews = mongo.db.reviews.find({'category' : {'$regex' : category }})
+    elif search == "" and category != "none": # checking for just filter selection
+
+        # pagination section
+
+        total = mongo.db.reviews.count_documents({'category' : {'$regex' : category }})  #total records in query
+        # setting the current page of pagination and also resets value of page when passed back through user interaction
+        current_page = int(request.args.get('current_page', 1))
+        offset = int(request.args.get('offset', 0)) # setting offset initially to 0 (position in db for current page)
+        max_pages = int(math.ceil(total /page_limit)) # calculating max pages needed to display all records
+        page_range = (1, max_pages) # creating a tuple with the page range in it 
+
+        # searching db for the selected category in filter 
+        find_reviews = mongo.db.reviews.find({'category' : {'$regex' : category }}).limit(page_limit).skip(offset)
         count_doc = mongo.db.reviews.count_documents({'category' : {'$regex' : category }})
 
         if count_doc == 0 : # if no records found for category selection
@@ -264,17 +283,28 @@ def search():
             return redirect(url_for("index"))
         
         flash(f'Results showing "' +category.title() +'" reviews only ', 'success')            
-        return render_template("index.html", title = 'Search', reviews = find_reviews)
+        return render_template("index.html", title = 'Search', reviews = find_reviews, total =total, page_limit = page_limit, 
+                                current_page = current_page, offset =offset, max_pages = max_pages, page_range = page_range)
         
-    elif search != "" and category == "none": # checking for just search text entry :   
+    elif search != "" and category == "none": # checking for just search text entry 
+        # pagination section
+
+        total = mongo.db.reviews.count_documents({"$text": {"$search": search}})  #total records in query
+        # setting the current page of pagination and also resets value of page when passed back through user interaction
+        current_page = int(request.args.get('current_page', 1))
+        offset = int(request.args.get('offset', 0)) # setting offset initially to 0 (position in db for current page)
+        max_pages = int(math.ceil(total /page_limit)) # calculating max pages needed to display all records
+        page_range = (1, max_pages) # creating a tuple with the page range in it 
+
         # running find on contents of search box using the multifield text search
-        find_reviews = mongo.db.reviews.find({"$text": {"$search": search}}) 
+        find_reviews = mongo.db.reviews.find({"$text": {"$search": search}}).limit(page_limit).skip(offset)
         count_doc = mongo.db.reviews.count_documents({"$text": {"$search": search}} )
         if count_doc == 0 : # if no records found for site search
             flash(f'There are no search results for "' + search + '" in the site search', 'warning')
             return redirect(url_for("index"))   
         flash(f'Search results for "'  + search +'"' , 'success')
-        return render_template("index.html", title = 'Search', reviews = find_reviews)
+        return render_template("index.html", title = 'Search', reviews = find_reviews, total =total, page_limit = page_limit, 
+                                current_page = current_page, offset =offset, max_pages = max_pages, page_range = page_range)
 
 @app.errorhandler(400)
 def bad_request(e):
