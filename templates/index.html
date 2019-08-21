@@ -3,25 +3,41 @@
 
 {% for review in reviews %}
 <div class="card mb-4">
-    <div class="card-header reviewer"><span class="review-title "><strong>Reviewed By:</strong></span> <span class="text-capitalize"> {{ review.username}} </span></div>
+    <div class="card-header reviewer"><span class="review-title "><strong>Reviewed By:</strong></span> <span
+            class="text-capitalize"> {{ review.username}} </span></div>
     <div class="card-body">
         <div class="row">
-            <div class="col-12 col-md-4"><span class="review-title "><strong>Author:</strong></span>  <span class="text-capitalize"> {{ review.author}} </span></div>
-            <div class="col-12 col-md-4"><span class="review-title "><strong>Book Title:</strong></span>  <span class="text-capitalize"> {{ review.book_title }}</span></div>
-            <div class="col-12 col-md-4"><span class="review-title" ><strong>Book Category:</strong></span> <i class="{{ review.icon}}" aria-hidden="true"></i> <span class="text-capitalize"> {{ review.category}} </span> </div>
+            <div class="col-12 col-md-4"><span class="review-title "><strong>Author:</strong></span> <span
+                    class="text-capitalize"> {{ review.author}} </span></div>
+            <div class="col-12 col-md-4"><span class="review-title "><strong>Book Title:</strong></span> <span
+                    class="text-capitalize"> {{ review.book_title }}</span></div>
+            <div class="col-12 col-md-4"><span class="review-title"><strong>Book Category:</strong></span> <i
+                    class="{{ review.icon}}" aria-hidden="true"></i> <span class="text-capitalize"> {{ review.category}}
+                </span> </div>
         </div>
         <hr />
         <div class="row">
-            <div class="col-12"><span class="review-title text-capitalize"><strong>Book Summary:</strong></span><br><br>{{ review.summary }}</div>
-            
+            <div class="col-12"><span class="review-title text-capitalize"><strong>Book
+                        Summary:</strong></span><br><br>{{ review.summary }}</div>
+
         </div>
         <hr />
         <div class="row">
-            <div class="col-md-10"><a class="btn btn-info" target="_blank" href=" {{ url_for('review', id=review._id ) }} ">View Review</a></div>
-            <div class="col-md-2"><span class="review-title">Bites:</span> <span class="upvote">+{{ review.upvote }}</span></div>
+            <div class="col-md-10"><a class="btn btn-info" target="_blank"
+                    href=" {{ url_for('review', id=review._id ) }} ">View Review</a></div>
+            <div class="col-md-2"><span class="review-title">Bites:</span> <span
+                    class="upvote">+{{ review.upvote }}</span></div>
         </div>
     </div>
 </div>
 {% endfor %}
+<!-- testing pagination -->
+</p> Page {{ current_page}} of {{max_pages}}</p>
+{%if offset >0 %}
+<a href="{{url_for('index', current_page=current_page-1, offset=offset-page_limit   )}}"><< View Previous</a>
+{% endif %}
+{%if current_page < max_pages  %}
+<a href="{{url_for('index', current_page=current_page+1, offset=offset+page_limit  )}}"> View Next >></a>
+{% endif %}
 
-{% endblock %}
+ {% endblock %}

@@ -1,5 +1,6 @@
 import os
 import re
+import math
 from flask import Flask, render_template, redirect, request, url_for, session, flash, Markup
 from flask_pymongo import PyMongo, pymongo
 from bson.objectid import ObjectId
@@ -14,13 +15,26 @@ app.secret_key = ('SECRET_KEY')
 # creating mongo app
 mongo = PyMongo(app)
 
+page_limit = 2 #  for pagination - amount of records to be displayed per page
+
 # landing page route
 @app.route('/' , methods=['GET', 'POST'])
 def index():
     ''' function to display all records on the landing page''' 
+
+    # pagination section
+
+    total = mongo.db.reviews.count_documents({}) #total records in reviews db
+    # setsting the current page of pagination and also resets value of page when passed back through user interaction
+    current_page = int(request.args.get('current_page', 1))
+    offset = int(request.args.get('offset', 0)) # setting offset initially to 0 (position in db for current page)
+    max_pages = int(math.ceil(total /page_limit)) # calculating max pages needed to display all records
+    page_range = (1, max_pages) # creating a tuple with the page range in it 
+
     # sort reviews by popularity (upvote)
-    reviews=mongo.db.reviews.find().sort('upvote', pymongo.DESCENDING)
-    return render_template("index.html", reviews = reviews)
+    reviews=mongo.db.reviews.find().sort('upvote', pymongo.DESCENDING).limit(page_limit).skip(offset)
+    return render_template("index.html", reviews = reviews, total =total, page_limit = page_limit, 
+                            current_page = current_page, offset =offset, max_pages = max_pages, page_range = page_range)
 
 @app.route('/review/<id>', methods=['GET', 'POST'])
 def review(id):
