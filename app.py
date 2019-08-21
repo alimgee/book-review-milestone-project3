@@ -263,6 +263,11 @@ def bad_request(e):
     """Route for handling 400 errors"""
     return render_template('400.html', title="Bad request!")
 
+@app.errorhandler(404)
+def page_not_found(e):
+    """Route for handling 404 errors"""
+    return render_template('404.html', title="Page not found!")
+
 def create_amazon_search(book):
     '''
     function to build an amazon search link based on the book title entered by the user
