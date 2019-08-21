@@ -34,6 +34,7 @@ body{
     background-size: cover;
     color: #6D929B;
     font-weight: bold;
+    border-radius: .5rem;
     
 }
 .lead{
@@ -43,7 +44,7 @@ body{
 .searchbar{
    
     background: transparent;
-    border-radius: .4rem;
+    border-radius: .5rem;
     color: #6D929B;    
 }
 .searchbutton{
@@ -56,6 +57,7 @@ body{
     color: #6D929B;
     font-size: .9rem;
     border-color: #E8D0A9;
+    border-radius: .5rem;
 }
 .card-header{
     border-color: #E8D0A9;
@@ -70,6 +72,7 @@ body{
 .btn{
     border-color: #E8D0A9;
     font-size: .9rem;
+    border-radius: .5rem
 }
 .btn:hover {
     background-color: #E8D0A9;

@@ -226,8 +226,11 @@ def search():
     #count_doc = mongo.db.reviews.count_documents({'category' : category})
 
     if search != "" and category != "none": # checking for both search and filter been attempted at the same time
-        flash(f'Search cannot check site search and filter category at the same time' , 'warning')
-        return redirect(url_for("index"))
+        find_reviews = mongo.db.reviews.find( { '$and': [ {'$text': {'$search': search}}, { 'category' : category } ]})
+        flash(f'Search Results for '+search +' filtered by ' + category + ' category'  , 'success')
+        
+        return render_template("index.html", title = 'Search', reviews = find_reviews)
+        
 
     if search == "" and category == "none": # checking if user has not entered text into search or used filter
         flash(f'You have not selected a category or enterd text into the search field' , 'warning')
