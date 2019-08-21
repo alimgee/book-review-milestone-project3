@@ -93,6 +93,17 @@ hr{
 .amazon{
     font-size: .75rem;
 }
+
+/* Pagination links  */
+.pagination-sm .page-item:last-child .page-link {
+    border-top-right-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+}
+.pagination-sm .page-item:first-child .page-link {
+    border-top-left-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+}
+
 /* media queries */
 
 @media (min-width: 576px) { 

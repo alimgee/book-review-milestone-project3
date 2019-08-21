@@ -32,12 +32,16 @@
 </div>
 {% endfor %}
 <!-- testing pagination -->
-</p> Page {{ current_page}} of {{max_pages}}</p>
-{%if offset >0 %}
-<a href="{{url_for('index', current_page=current_page-1, offset=offset-page_limit   )}}"><< View Previous</a>
-{% endif %}
-{%if current_page < max_pages  %}
-<a href="{{url_for('index', current_page=current_page+1, offset=offset+page_limit  )}}"> View Next >></a>
-{% endif %}
+<ul class="pagination pagination-sm justify-content-center">
+    {%if offset >0 %}
+    <li class="page-item"><a class="page-link" href="{{url_for('index', current_page=current_page-1, offset=offset-page_limit   )}}">Previous</a></li>
+    {% endif %} 
+    <li class="page-item disabled"><a class="page-link" href="#">Page {{ current_page}} of {{max_pages}}</a></li>
+    {% if current_page < max_pages  %}
+    <li class="page-item"><a class="page-link" href="{{url_for('index', current_page=current_page+1, offset=offset+page_limit  )}}">Next</i>
+    </a></li>
+    {% endif %}
+</ul>
+
 
  {% endblock %}
