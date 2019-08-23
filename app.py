@@ -301,6 +301,12 @@ def edit_review(id):
                            title='Edit a  Review')
 
 
+@app.route('/delete')
+def delete_review():
+    flash("in delete")
+    return (url_for(index))
+
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     '''
