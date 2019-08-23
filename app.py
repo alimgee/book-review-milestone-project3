@@ -303,11 +303,30 @@ def edit_review(id):
 
 @app.route('/delete/<id>', methods=['GET', 'POST'])
 def delete_review(id):
-    flash("in delete ")
-    flash(id)
+    # function to allow a logged in user delete their own reviews
+    if 'logged' not in session:
+        '''
+        In app journey only a logged in user will see the delete
+        button, however i am adding a logged in query to the route
+        for further security to prevent url manipulation
+        '''
+        flash('You need to log in to delete a review', 'warning')
+        return redirect(url_for('login'))  # sending to log in
+
+    # retrieving record from db
+
+    # if a user trys to go to edit review that they don't own
+    one_review = mongo.db.reviews.find_one({'_id': ObjectId(id)})
+    if one_review['username'] != session['username']:
+        flash('You do not own this review and cannot delete it.' +
+              'A user can only edit or delete their own reviews',
+              'warning')
+        return redirect(url_for('index'))  # sending to log in
+
+    flash("You have successfully deleted your review.",
+          'warning')
+    mongo.db.reviews.delete_one({'_id': ObjectId(id)})
     return redirect(url_for('index'))
-    
-    
 
 
 @app.route('/search', methods=['GET', 'POST'])
