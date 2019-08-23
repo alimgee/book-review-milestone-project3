@@ -45,7 +45,8 @@ body{
    
     background: transparent;
     border-radius: .5rem;
-    color: #6D929B;    
+    color: #6D929B; 
+    font-weight: bold;   
 }
 .searchbutton{
     opacity: .7;
@@ -71,7 +72,7 @@ body{
 }
 .btn{
     border-color: #E8D0A9;
-    font-size: .9rem;
+    font-size: .75rem;
     border-radius: .5rem
 }
 .btn:hover {
@@ -102,6 +103,19 @@ hr{
 .pagination-sm .page-item:first-child .page-link {
     border-top-left-radius: .5rem;
     border-bottom-left-radius: .5rem;
+}
+
+/* delete modal */
+.modal-content{
+    color: #6D929B;
+    background-color: #fff;
+    border-radius: .5rem;
+}
+.modal-header{
+    border-bottom-color: #E8D0A9;
+}
+.modal-footer{
+    border-top-color: #E8D0A9;
 }
 
 /* media queries */
