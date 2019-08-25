@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content%}
+
+<div class="row ml-1">
+        <div class="col-sm-6 mb-4">
+            <div><h2 class="other-error-content">Somethings Wrong!</h2></div>
+            <div class="error-content mt-4">
+                <p>Opps there seems to be a problem with this page</p>
+                <p>Lets us help you get back to where you were</p>
+                <p class="mt-4"><a class="btn btn-info" target="_blank" href=" {{ url_for('index') }} ">Get me Back to Home</a>
+                <a class="btn btn-info" target="_blank" href=" {{ url_for('my_reviews') }} ">Get me to My Reivews</a></p>
+    
+                
+            </div>
+        </div>
+        <div class="col-sm-6"><img src="{{ url_for('static', filename='img/404_b.png') }}" alt="" class="img-fluid"></div>
+        
+    </div>
+
+{% endblock %}
