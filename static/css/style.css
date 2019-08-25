@@ -130,6 +130,11 @@ hr{
     font-weight: bold;
     color: #6D929B;
 }
+.other-error-content{
+    font-size: 2em;
+    font-weight: bold;
+    color: #6D929B;
+}
 /* media queries */
 
 @media (min-width: 576px) { 
