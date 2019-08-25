@@ -361,15 +361,20 @@ def delete_review(id):
 
     # if a user trys to go to edit review that they don't own
     one_review = mongo.db.reviews.find_one({'_id': ObjectId(id)})
+
+    # retrieving record from db
+
+    # if a user trys to go to edit review that they don't own
     if one_review['username'] != session['username']:
         flash('You do not own this review and cannot delete it.' +
-              'A user can only edit or delete their own reviews',
+            ' A user can only edit or delete their own reviews',
               'warning')
+
         return redirect(url_for('index'))  # sending to log in
 
     flash("You have successfully deleted your review.",
           'warning')
-    mongo.db.reviews.delete_one({'_id': ObjectId(id)})
+   # mongo.db.reviews.delete_one({'_id': ObjectId(id)})
     return redirect(url_for('index'))
 
 
