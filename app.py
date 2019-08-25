@@ -78,9 +78,9 @@ def my_profile():
         # only let a logged in user edit their own profile page
         current_user = session['username']
         flash('Hi "' + current_user + '". This is your profile ' +
-        'page. You can view a summary of your reviews and delete ' +
-        'your profile from here', 'success')
-        
+              'page. You can view a summary of your reviews and' +
+              ' delete your profile from here', 'success')
+
         # finding user based on login session
         find_user = mongo.db.users.find_one({'username': current_user})
         # setting db username to the current session username
@@ -88,15 +88,27 @@ def my_profile():
         return render_template('myprofile.html',
                                reviews=reviews,
                                title='My Profile',
-                               user = find_user)
+                               user=find_user)
     else:
         # if user is not logged in
         flash('You need to be logged in to see your profile', 'warning')
         return redirect(url_for('login'))
 
+
 @app.route('/deleteprofile/<id>', methods=['GET', 'POST'])
 def delete_profile(id):
-    flash ('in delete profile')
+    # user taking from logged in session
+    user = session['username']
+    # deleting all reviews by user
+    mongo.db.reviews.delete_many({'username': user})
+    # deleting users profile
+    mongo.db.users.delete_one({'_id': ObjectId(id)})
+    # clearing session
+    session.clear()
+
+    flash('Your profile and all associated reviews are now removed',
+          'success')
+
     return redirect(url_for('index'))
 
 
