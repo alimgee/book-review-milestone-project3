@@ -68,13 +68,30 @@ def review(id):
                            title=title)
 
 
-@app.route('/myprofile', methods=['GET', 'POST'])
-def profile():
+@app.route('/myprofile/')
+def my_profile():
     '''
     function to show profile to user for account and review
     deletion
     '''
-    return render_template('myprofile.html', title = "My Profile")
+    if 'logged' in session:
+        # only let a logged in user edit their own profile page
+        flash('This is your profile page. You can view a summary' +
+              ' of your reviews and delete your profile from here',
+              'success')
+        current_user = session['username']
+        # finding user based on login session
+        find_user = mongo.db.users.find_one({'username': current_user})
+        # setting db username to the current session username
+        reviews = mongo.db.reviews.find({'username': current_user})
+        return render_template('myprofile.html',
+                               reviews=reviews,
+                               title='My Profile',
+                               user = find_user)
+    else:
+        # if user is not logged in
+        flash('You need to be logged in to see your reviews', 'warning')
+        return redirect(url_for('login'))
 
 
 @app.route('/upvote/<id>', methods=['GET', 'POST'])
