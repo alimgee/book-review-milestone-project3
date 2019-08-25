@@ -14,7 +14,7 @@ app.config['MONGO_DBNAME'] = 'booksDB'
 app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 
 # passing Secret key via environment
-app.secret_key = 'SECRET_KEY'
+app.secret_key = os.getenv('SECRET_KEY')
 
 # creating mongo app
 mongo = PyMongo(app)
