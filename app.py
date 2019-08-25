@@ -68,6 +68,15 @@ def review(id):
                            title=title)
 
 
+@app.route('/myprofile', methods=['GET', 'POST'])
+def profile():
+    '''
+    function to show profile to user for account and review
+    deletion
+    '''
+    return render_template('myprofile.html', title = "My Profile")
+
+
 @app.route('/upvote/<id>', methods=['GET', 'POST'])
 def upvote(id):
     '''function to increase upvote by 1, runs when upvote icon is clicked'''
@@ -519,7 +528,7 @@ def page_not_found(e):
 
 @app.errorhandler(500)
 def bad_request(e):
-    """Route for handling 400 errors"""
+    """Route for handling 500 errors"""
 
     return render_template('500.html', title='Oopps Somethings wrong!')
 
