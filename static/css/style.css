@@ -118,6 +118,18 @@ hr{
     border-top-color: #E8D0A9;
 }
 
+/* error pages */
+
+.error-header{
+    font-size: 5rem;
+    font-weight: bold;
+    color: #6D929B;
+}
+.error-content{
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #6D929B;
+}
 /* media queries */
 
 @media (min-width: 576px) { 
