@@ -6,6 +6,7 @@ from flask import Flask, render_template, redirect, request, url_for, \
 from flask_pymongo import pymongo, PyMongo
 from bson.objectid import ObjectId
 from forms import RegistrationForm, LoginForm, ReviewForm
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 app = Flask(__name__)
@@ -141,7 +142,8 @@ def register():
         find_user = users.find_one({'username': request.form['username']})
         if find_user is None:
             # if username is not in db insert the record into users collection
-            password = request.form['password']
+            password = generate_password_hash(request.form['password'])
+            # hashing entered password
             users.insert_one({'username': request.form['username'],
                              'password': password})
             # Notify new user succesfully registration and create a  session
@@ -183,7 +185,7 @@ def login():
         find_user = users.find_one({'username': request.form['username']})
         if find_user:  # if user is found in db
             password = form.password.data
-            if find_user['password'] == password:
+            if check_password_hash(find_user['password'], password):
                 # if password entered matches whats in db for paticluar user
 
                 myreviews_link = \
