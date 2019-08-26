@@ -567,7 +567,7 @@ def page_not_found(e):
 
 
 @app.errorhandler(500)
-def bad_request(e):
+def server_error(e):
     """Route for handling 500 errors"""
 
     return render_template('500.html', title='Oopps Somethings wrong!')
