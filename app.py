@@ -86,10 +86,15 @@ def my_profile():
         find_user = mongo.db.users.find_one({'username': current_user})
         # setting db username to the current session username
         reviews = mongo.db.reviews.find({'username': current_user})
+        count = mongo.db.reviews.count_documents({'username': current_user})
+        #if count == 0:
+            #flash('You currently have no reviews', 'success')
+        
         return render_template('myprofile.html',
                                reviews=reviews,
                                title='My Profile',
-                               user=find_user)
+                               user=find_user, 
+                               count=count)
     else:
         # if user is not logged in
         flash('You need to be logged in to see your profile', 'warning')
@@ -140,6 +145,7 @@ def register():
         # if reigster form passes all validation check if username  exists
         users = mongo.db.users
         find_user = users.find_one({'username': request.form['username']})
+        
         if find_user is None:
             # if username is not in db insert the record into users collection
             password = generate_password_hash(request.form['password'])
