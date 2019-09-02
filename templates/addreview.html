@@ -41,6 +41,7 @@
 
                         <div class="form-group">
                                 {{ form.summary.label(class="form-control-label") }}
+                                <span id="summary-chars">500</span> characters remaining
                                 {% if form.summary.errors %}
                                 {{ form.summary(class="form-control form-control is-invalid") }}
                                 <div class="invalid-feedback">
@@ -55,6 +56,7 @@
 
                             <div class="form-group">
                                 {{ form.review.label(class="form-control-label") }}
+                                <span id="review-chars">1500</span> characters remaining
                                 {% if form.review.errors %}
                                 {{ form.review(class="form-control form-control is-invalid") }}
                                 <div class="invalid-feedback">

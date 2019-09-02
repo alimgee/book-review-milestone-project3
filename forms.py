@@ -29,9 +29,9 @@ class ReviewForm(FlaskForm):
                          Length(min=2, max=80)])
     book_title = StringField('Book Title', validators=[DataRequired(),
                              Length(min=1, max=150)])
-    summary = TextAreaField('Book Bite Summary (200 char)',
+    summary = TextAreaField('Book Bite Summary (500 char)',
                             validators=[DataRequired(), Length(min=2,
-                                        max=200)])
+                                        max=500)])
     review = TextAreaField('Book Bite Review (1500 char)',
                            validators=[DataRequired(), Length(min=2,
                                        max=1500)])
