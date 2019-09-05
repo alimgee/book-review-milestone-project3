@@ -6,60 +6,60 @@
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-
-                <form method="POST" action="" >
+                <!-- Form to allow user to register, wtforms are being used to generate form detail and error check so no action is set -->
+                <form method="POST" action="">
                     {{ form.hidden_tag() }}
-                    <fieldset class="form-group">
-
-                        <div class="form-group">
-
-                            {{ form.username.label(class="form-control-label") }}
-                            {% if form.username.errors %}
-                            {{ form.username(class="form-control form-control is-invalid") }}
-                            <div class="invalid-feedback">test
-                                {% for error in form.username.errors %}
-                                <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                            {% else %}
-                            {{ form.username(class="form-control form-control-lg") }}
-                            {% endif %}
-
-                        </div>
-                        <div class="form-group">
-
-                            <div class="form-group">
-                                {{ form.password.label(class="form-control-label") }}
-                                {% if form.password.errors %}
-                                {{ form.password(class="form-control form-control is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.password.errors %}
-                                    <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                                {% else %}
-                                {{ form.password(class="form-control form-control-lg") }}
-                                {% endif %}
-
-
-                            </div>
-                            <div class="form-group">
-                                {{ form.confirm_password.label(class="form-control-label") }}
-                                {% if form.confirm_password.errors %}
-                                {{ form.confirm_password(class="form-control form-control is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.confirm_password.errors %}
-                                    <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                                {% else %}
-                                {{ form.confirm_password(class="form-control form-control-lg") }}
-                                {% endif %}
-
-                            </div>
-                    </fieldset>
                     <div class="form-group">
-                        {{ form.submit(class="btn btn-outline-info") }}
+                        {{ form.username.label(class="form-control-label") }}
+                        <!-- checking username field for user input errors-->
+                        {% if form.username.errors %}
+                        {{ form.username(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            <!--if error found display it-->
+                            {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.username(class="form-control form-control-lg") }}
+                        {% endif %}
+
+                    </div>
+                    <div class="form-group">
+                        {{ form.password.label(class="form-control-label") }}
+                        <!-- checking password field for user input errors-->
+                        {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.password(class="form-control form-control-lg") }}
+                        {% endif %}
+
+
+                    </div>
+                    <div class="form-group">
+                        {{ form.confirm_password.label(class="form-control-label") }}
+                        <!-- checking confirm password field for user input errors-->
+                        {% if form.confirm_password.errors %}
+                        {{ form.confirm_password(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.confirm_password.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.confirm_password(class="form-control form-control-lg") }}
+                        {% endif %}
+
+                    </div>
+
+                    <div class="form-group">
+                        <!-- submit form-->
+                        {{ form.submit(class="btn btn-info") }}
                     </div>
                 </form>
 
