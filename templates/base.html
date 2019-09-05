@@ -33,13 +33,14 @@
                 <div class="navbar-nav ml-auto ">
                     
                     {% if session['logged'] == True %}
-                    
+                    <a class="nav-item nav-link " href="{{ (url_for('about')) }}">About</a>
                     <a class="nav-item nav-link " href="{{ (url_for('my_reviews')) }}">My Reviews</a>
-                    <a class="nav-item nav-link " href="{{ (url_for('sign_out')) }}">Sign Out</a>
                     <a class="nav-item nav-link " href="{{ (url_for('my_profile' )) }}">My Profile</a>
+                    <a class="nav-item nav-link " href="{{ (url_for('sign_out')) }}">Log Out</a>
                     {% else %}
-                    <a class="nav-item nav-link " href="{{ (url_for('login')) }}">Login </a>
+                    <a class="nav-item nav-link " href="{{ (url_for('about')) }}">About</a>
                     <a class="nav-item nav-link " href="{{ (url_for('register')) }}">Register</a>
+                    <a class="nav-item nav-link " href="{{ (url_for('login')) }}">Log In </a>
                     {% endif %}
                 </div>
             </div>
