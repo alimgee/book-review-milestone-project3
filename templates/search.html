@@ -1,46 +1,54 @@
 {% extends 'base.html' %}
 {% block content%}
-
+<!-- looping through db collection and displaying in card -->
 {% for review in reviews %}
 <div class="card mb-4">
-    <div class="card-header reviewer"><span class="review-title "><strong>Reviewed By:</strong></span> <span
-            class="text-capitalize"> {{ review.username}} </span></div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-12 col-md-4"><span class="review-title "><strong>Author:</strong></span> <span
-                    class="text-capitalize"> {{ review.author}} </span></div>
-            <div class="col-12 col-md-4"><span class="review-title "><strong>Book Title:</strong></span> <span
-                    class="text-capitalize"> {{ review.book_title }}</span></div>
-            <div class="col-12 col-md-4"><span class="review-title"><strong>Book Category:</strong></span> <i
-                    class="{{ review.icon}}" aria-hidden="true"></i> <span class="text-capitalize"> {{ review.category}}
-                </span> </div>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="col-12"><span class="review-title text-capitalize"><strong>Book
-                        Summary:</strong></span><br><br>{{ review.summary }}</div>
+        <div class="card-header reviewer"><span class="review-title "><strong>Reviewed By:</strong></span> <span
+                        class="text-capitalize"> {{ review.username}} </span></div>
+        <div class="card-body">
+                <div class="row">
+                        <div class="col-12 col-md-4"><span class="review-title "><strong>Author:</strong></span> <span
+                                        class="text-capitalize"> {{ review.author}} </span></div>
+                        <div class="col-12 col-md-4"><span class="review-title "><strong>Book Title:</strong></span>
+                                <span class="text-capitalize"> {{ review.book_title }}</span></div>
+                        <div class="col-12 col-md-4"><span class="review-title"><strong>Book Category:</strong></span>
+                                <i class="{{ review.icon}}" aria-hidden="true"></i> <span class="text-capitalize">
+                                        {{ review.category}}
+                                </span> </div>
+                </div>
+                <hr />
+                <div class="row">
+                        <div class="col-12"><span class="review-title text-capitalize"><strong>Book
+                                                Summary:</strong></span><br><br>{{ review.summary }}</div>
 
+                </div>
+                <hr />
+                <div class="row">
+                        <div class="col-md-10"><a class="btn btn-info" target="_blank"
+                                        href=" {{ url_for('review', id=review._id ) }} ">View Review</a></div>
+                        <div class="col-md-2"><span class="review-title">Bites:</span> <span
+                                        class="upvote">+{{ review.upvote }}</span></div>
+                </div>
         </div>
-        <hr />
-        <div class="row">
-            <div class="col-md-10"><a class="btn btn-info" target="_blank"
-                    href=" {{ url_for('review', id=review._id ) }} ">View Review</a></div>
-            <div class="col-md-2"><span class="review-title">Bites:</span> <span
-                    class="upvote">+{{ review.upvote }}</span></div>
-        </div>
-    </div>
 </div>
 {% endfor %}
-<!-- testing pagination -->
+<!-- pagination -->
+<!--requst.args.get function is used in the search route to keep track of offset and current page-->
 <ul class="pagination pagination-sm justify-content-center">
-    {%if offset >0 %}
-    <li class="page-item"><a class="page-link" href="{{url_for('search', current_page=current_page-1, offset=offset-page_limit, search = search, category = category   )}}">Previous</a></li>
-    {% endif %} 
-    <li class="page-item disabled"><a class="page-link" href="#">Page {{ current_page}} of {{max_pages}}</a></li>
-    {% if current_page < max_pages  %}
-    <li class="page-item"><a class="page-link" href="{{url_for('search', current_page=current_page+1, offset=offset+page_limit, search = search, category = category  )}}">Next</a></li>
-    {% endif %}
+        <!-- if offset is greater than 0 this means that the next button has been clicked previously so then show the previous button -->
+        {%if offset >0 %}
+        <li class="page-item"><a class="page-link"
+                        href="{{url_for('search', current_page=current_page-1, offset=offset-page_limit, search = search, category = category   )}}">Previous</a>
+        </li>
+        {% endif %}
+        <!-- show record of page count and current page-->
+        <li class="page-item disabled"><a class="page-link" href="#">Page {{ current_page}} of {{max_pages}}</a></li>
+        <!-- if current page remains less than the maximum page count then show the next button-->
+        {% if current_page < max_pages  %}
+        <li class="page-item"><a class="page-link"
+                        href="{{url_for('search', current_page=current_page+1, offset=offset+page_limit, search = search, category = category  )}}">Next</a>
+        </li>
+        {% endif %}
 </ul>
 
-
- {% endblock %}
+{% endblock %}
