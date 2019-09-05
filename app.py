@@ -232,6 +232,13 @@ def sign_out():
     return redirect(url_for('index'))
 
 
+@app.route('/about')
+def about():
+    ''' function to display about page with detail on project 
+    and relevant disclaimer
+    '''
+    return render_template('about.html', title='About')
+
 @app.route('/myreviews')
 def my_reviews():
     '''

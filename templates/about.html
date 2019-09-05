@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content%}
+
+<div class="row ml-1">
+    <div class="col-sm-6 mb-4">
+        <div><h2 class="error-header">About</h2></div>
+        <div class="error-content mt-4">
+            <p>This site is a project developed whilst doing a 'FullStack Wed Dev' course with 
+                'The Code Institute' and is a requirement in order to pass the course.</p>
+            <p>This site will demonstrate the use of Python, Flask and MongoDB to produce a functioning 
+                book review site.</p>
+            <p>The content added by the 'admin', 'alan' and 'editor' users were directly taken from 
+                amazon as purely site filler and will be removed once other legitimate content is added
+
+           </p>
+            
+
+            
+        </div>
+    </div>
+    <div class="col-sm-6"><img src="{{ url_for('static', filename='img/404_b.png') }}" alt="" class="img-fluid"></div>
+    
+</div>
+
+{% endblock %}
