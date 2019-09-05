@@ -135,6 +135,21 @@ hr{
     font-weight: bold;
     color: #6D929B;
 }
+
+/* about page */
+
+.about-header{
+    font-size: 2rem;
+    font-weight: bold;
+    color: #6D929B;
+}
+.about-content{
+    font-size: 1rem;
+    font-weight: bold;
+    color: #6D929B;
+}
+
+
 /* media queries */
 
 @media (min-width: 576px) { 
