@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% block content%}
-
+<!-- 500 error page content -->
 <div class="row ml-1">
         <div class="col-sm-6 mb-4">
             <div><h2 class="other-error-content">Somethings Wrong!</h2></div>
             <div class="error-content mt-4">
                 <p>Opps there seems to be a problem with this page</p>
                 <p>Lets us help you get back to where you were</p>
+                <!-- links to bring user back into journey from the error page -->
                 <p class="mt-4"><a class="btn btn-info" target="_blank" href=" {{ url_for('index') }} ">Get me Back to Home</a>
                 <a class="btn btn-info" target="_blank" href=" {{ url_for('my_reviews') }} ">Get me to My Reivews</a></p>
     
