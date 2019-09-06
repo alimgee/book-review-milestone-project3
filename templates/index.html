@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block content%}
-
+<!-- Using card to diplay each review summary -->
 {% for review in reviews %}
+<!-- looping through mongoaDB collection -->
 <div class="card mb-4">
     <div class="card-header reviewer"><span class="review-title "><strong>Reviewed By:</strong></span> <span
             class="text-capitalize"> {{ review.username}} </span></div>
@@ -23,6 +24,7 @@
         </div>
         <hr />
         <div class="row">
+                <!-- link to see full review -->
             <div class="col-md-10"><a class="btn btn-info" target="_blank"
                     href=" {{ url_for('review', id=review._id ) }} ">View Review</a></div>
             <div class="col-md-2"><span class="review-title">Bites:</span> <span
@@ -31,13 +33,17 @@
     </div>
 </div>
 {% endfor %}
-<!-- testing pagination -->
+<!--  pagination -->
+<!--requst.args.get function is used in the search route to keep track of offset and current page-->
 <ul class="pagination pagination-sm justify-content-center">
     {%if offset >0 %}
+     <!-- if offset is greater than 0 this means that the next button has been clicked previously so then show the previous button -->
     <li class="page-item"><a class="page-link" href="{{url_for('index', current_page=current_page-1, offset=offset-page_limit   )}}">Previous</a></li>
-    {% endif %} 
+    {% endif %}
+    <!-- showing user current page of total pages -->
     <li class="page-item disabled"><a class="page-link" href="#">Page {{ current_page}} of {{max_pages}}</a></li>
     {% if current_page < max_pages  %}
+    <!-- if current page remains less than the maximum page count then show the next button--></max_pages>
     <li class="page-item"><a class="page-link" href="{{url_for('index', current_page=current_page+1, offset=offset+page_limit  )}}">Next</a></li>
     {% endif %}
 </ul>
