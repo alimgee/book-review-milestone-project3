@@ -1,101 +1,103 @@
 {% extends 'base.html' %}
 {% block content%}
-
+<!-- card to display review details -->
 <div class="card mb-4">
     <div class="card-header reviewer"><span class="review-title "><strong>Add Review</strong></span></div>
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-
                 <form method="POST" action="">
                     {{ form.hidden_tag() }}
-                    <fieldset class="form-group">
-
-                        <div class="form-group">
-                            {{ form.author.label(class="form-control-label") }}
-                            {% if form.author.errors %}
-                            {{ form.author(class="form-control form-control is-invalid") }}
-                            <div class="invalid-feedback">test
-                                {% for error in form.username.errors %}
-                                <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                            {% else %}
-                            {{ form.author(class="form-control form-control") }}
-                            {% endif %}
-                        </div>                  
-
-                        <div class="form-group">
-                            {{ form.book_title.label(class="form-control-label") }}
-                            {% if form.book_title.errors %}
-                            {{ form.book_title(class="form-control form-control is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.book_title.errors %}
-                                <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                            {% else %}
-                            {{ form.book_title(class="form-control form-control") }}
-                            {% endif %}
+                    <!-- wtform populates with relevant review data from mongoDB -->
+                    <div class="form-group">
+                        {{ form.author.label(class="form-control-label") }}
+                        <!-- checking for user entry errors -->
+                        {% if form.author.errors %}
+                        {{ form.author(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">test
+                            {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
                         </div>
+                        {% else %}
+                        {{ form.author(class="form-control form-control") }}
+                        {% endif %}
+                    </div>
 
-                        <div class="form-group">
-                                {{ form.summary.label(class="form-control-label") }}
-                                <span id="summary-chars"> type into field to find how many</span> characters remaining
-                                {% if form.summary.errors %}
-                                {{ form.summary(class="form-control form-control is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.summary.errors %}
-                                    <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                                {% else %}
-                                {{ form.summary(class="form-control form-control") }}
-                                {% endif %}
-                            </div>
+                    <div class="form-group">
+                        {{ form.book_title.label(class="form-control-label") }}
+                        <!-- checking for user entry errors -->
+                        {% if form.book_title.errors %}
+                        {{ form.book_title(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.book_title.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.book_title(class="form-control form-control") }}
+                        {% endif %}
+                    </div>
 
-                            <div class="form-group">
-                                {{ form.review.label(class="form-control-label") }}
-                                <span id="review-chars"> type into field to find how many</span> characters remaining
-                                {% if form.review.errors %}
-                                {{ form.review(class="form-control form-control is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.review.errors %}
-                                    <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                                {% else %}
-                                {{ form.review(class="form-control form-control") }}
-                                {% endif %}
-                            </div>
+                    <div class="form-group">
+                        {{ form.summary.label(class="form-control-label") }}
+                        <!-- using jquery to place character counter on text area to assist user-->
+                        <span id="summary-chars"> type into field to find how many</span> characters remaining
+                        <!-- checking for user entry errors -->
+                        {% if form.summary.errors %}
+                        {{ form.summary(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.summary.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.summary(class="form-control form-control") }}
+                        {% endif %}
+                    </div>
 
-                            <div class="form-group">
-                                {{ form.category.label(class="form-control-label") }}
-                                {% if form.category.errors %}
-                                {{ form.category(class="form-control form-control is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.category.errors %}
-                                    <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                                {% else %}
-                                {{ form.category(class="form-control form-control") }}
-                                {% endif %}
-                            </div>
+                    <div class="form-group">
+                        {{ form.review.label(class="form-control-label") }}
+                        <!-- using jquery to place character counter on text area to assist user-->
+                        <span id="review-chars"> type into field to find how many</span> characters remaining
+                        <!-- checking for user entry errors -->
+                        {% if form.review.errors %}
+                        {{ form.review(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.review.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.review(class="form-control form-control") }}
+                        {% endif %}
+                    </div>
 
-
-                    </fieldset>
+                    <div class="form-group">
+                        {{ form.category.label(class="form-control-label") }}
+                        <!-- checking for user entry errors -->
+                        {% if form.category.errors %}
+                        {{ form.category(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.category.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        {{ form.category(class="form-control form-control") }}
+                        {% endif %}
+                    </div>
+                    <!-- button to update contents of review to mongoDB-->
                     <div class="form-group">
                         {{ form.submit_edit(class="btn btn-info") }}
                     </div>
                 </form>
-
-
             </div>
 
         </div>
 
     </div>
+    
 </div>
 
 {% endblock %}
