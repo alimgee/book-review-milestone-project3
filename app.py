@@ -617,7 +617,7 @@ def get_icon_class(cat):
         'nature': 'fa fa-leaf',
         'science': 'fa fa-cogs',
         'sport': 'fa fa-futbo-o',
-        'world history': 'fa fa-globe',
+        'history': 'fa fa-globe',
         }
     return icons[cat]  # returning relevant classes
 

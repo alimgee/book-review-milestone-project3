@@ -39,10 +39,10 @@ class ReviewForm(FlaskForm):
         ('factual', 'Fact'),
         ('fiction', 'Fiction'),
         ('health', 'Health'),
+        ('history', 'History'),
         ('nature', 'Nature'),
         ('science', 'Science'),
         ('sport', 'Sport'),
-        ('history', 'World History'),
         ])
     submit_add = SubmitField('Add Review')
     submit_edit = SubmitField('Update Review')
