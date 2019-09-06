@@ -1,78 +1,84 @@
 {% extends 'base.html' %}
 {% block content%}
+
 <!-- card to hold review details using junga to pull content from mongoDB -->
 <div class="card mb-4">
-    <div class="card-header reviewer"><span class="review-title "><strong>Reviewed By:</strong></span> <span
-            class="text-capitalize"> {{ review.username}} </span></div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-12 col-md-4"><span class="review-title "><strong>Author:</strong></span> <span
-                    class="text-capitalize"> {{ review.author}} </span></div>
-            <div class="col-12 col-md-4"><span class="review-title "><strong>Book Title:</strong></span> <span
-                    class="text-capitalize"> {{ review.book_title }}</span></div>
-            <div class="col-12 col-md-4"><span class="review-title"><strong>Book Category:</strong></span> <i
-                    class="{{ review.icon}}" aria-hidden="true"></i> <span class="text-capitalize"> {{ review.category}}
-                </span> </div>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="col-12"><span class="review-title text-capitalize"><strong>Book
-                        Summary:</strong></span><br>{{ review.summary }}</div>
-
-        </div>
-        <div class="row mt-2">
-            <div class="col-12"><span class="review-title text-capitalize"><strong>Book
-                        Review:</strong></span><br>{{ review.review }}</div>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="col-md-6 mb-2"><span class="review-title">Bites:</span> <span
-                    class="upvote">+{{ review.upvote }}</span> <a href="{{ url_for('upvote', id=review._id ) }} "> <i
-                        class="fa fa-book" aria-hidden="true"></i> </a><span class="small">click to add a
-                    BookBite</span>
-            </div>
-            <div class="col-md-6 mb-2"><a href="{{ review.amazon }} " class="btn amazon" target="_blank"> Search Amazon
-                    For Book </a>
-            </div>
-        </div>
+  <div class="card-header reviewer"><span class="review-title "><strong>Reviewed By:</strong></span> <span
+      class="text-capitalize"> {{ review.username}} </span></div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12 col-md-4"><span class="review-title "><strong>Author:</strong></span> <span
+          class="text-capitalize"> {{ review.author}} </span></div>
+      <div class="col-12 col-md-4"><span class="review-title "><strong>Book Title:</strong></span> <span
+          class="text-capitalize"> {{ review.book_title }}</span></div>
+      <div class="col-12 col-md-4"><span class="review-title"><strong>Book Category:</strong></span> <i
+          class="{{ review.icon}}" aria-hidden="true"></i> <span class="text-capitalize"> {{ review.category}}
+        </span> </div>
     </div>
+    <hr />
+    <div class="row">
+      <div class="col-12"><span class="review-title text-capitalize"><strong>Book
+            Summary:</strong></span><br>{{ review.summary }}</div>
+
+    </div>
+    <div class="row mt-2">
+      <div class="col-12"><span class="review-title text-capitalize"><strong>Book
+            Review:</strong></span><br>
+        {% for paragraph in formatted_review %}
+        <p>{{ paragraph }}</p>
+        {% endfor %}</div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-md-6 mb-2"><span class="review-title">Bites:</span> <span
+          class="upvote">+{{ review.upvote }}</span> <a href="{{ url_for('upvote', id=review._id ) }} "> <i
+            class="fa fa-book" aria-hidden="true"></i> </a><span class="small">click to add a
+          BookBite</span>
+      </div>
+      <div class="col-md-6 mb-2"><a href="{{ review.amazon }} " class="btn amazon" target="_blank"> Search Amazon
+          For Book </a>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- ony show edit and delete buttons if the user is logged in -->
 {% if session['logged'] == True %}
 <div class="row mb-4 text-center">
-    <div class="col-12 col-md-6 mb-3"><a href=" {{ (url_for('edit_review', id=review._id )) }} " class="btn btn-info">Edit
-            Review</a></div>
-    <div class="col-12 col-md-6 mb-2">
-       
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
-                Delete Review
-              </button>
-    </div>
+  <div class="col-12 col-md-6 mb-3"><a href=" {{ (url_for('edit_review', id=review._id )) }} " class="btn btn-info">Edit
+      Review</a></div>
+  <div class="col-12 col-md-6 mb-2">
+
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+      Delete Review
+    </button>
+  </div>
 </div>
 {% endif %}
-     <!-- Modal for deleting a review including warning to user -->
-     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-danger" id="deleteModalLabel"><strong>Delete Review - Warning!!</strong></h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>You are about to delete your review on "<span class="text-capitalize"><strong> {{ review.book_title }}  by {{ review.author }} </strong>"</span></p>
-              <p class="text-danger"><strong>Are you sure?</strong></p>
-              <p class="text-danger">You cannot retrieve the details of this review once deleted.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <!--delte review button-->
-              <a href=" {{ (url_for('delete_review', id=review._id )) }} " class="btn btn-danger" >Delete Review</a>
-            </div>
-          </div>
-        </div>
+<!-- Modal for deleting a review including warning to user -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="deleteModalLabel"><strong>Delete Review - Warning!!</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+        <p>You are about to delete your review on "<span class="text-capitalize"><strong> {{ review.book_title }} by
+              {{ review.author }} </strong>"</span></p>
+        <p class="text-danger"><strong>Are you sure?</strong></p>
+        <p class="text-danger">You cannot retrieve the details of this review once deleted.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <!--delte review button-->
+        <a href=" {{ (url_for('delete_review', id=review._id )) }} " class="btn btn-danger">Delete Review</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 {% endblock %}

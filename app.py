@@ -65,8 +65,16 @@ def review(id):
 
     one_review = mongo.db.reviews.find_one({'_id': ObjectId(id)})
     title = one_review['book_title']
+    '''
+    Need to display paragraphs if entered by user into
+    the review field
+    '''
+    formatted_review = one_review['review']
+    # creating a list of strings from review field split on new lines
+    formatted_review = re.split(r"[~\r\n]+", formatted_review)
+    # pass review strings list into template to be looped through
     return render_template('review.html', review=one_review,
-                           title=title)
+                           title=title, formatted_review=formatted_review)
 
 
 @app.route('/myprofile/')
@@ -389,7 +397,7 @@ def delete_review(id):
 
     flash("You have successfully deleted your review.",
           'warning')
-   # mongo.db.reviews.delete_one({'_id': ObjectId(id)})
+    mongo.db.reviews.delete_one({'_id': ObjectId(id)})
     return redirect(url_for('index'))
 
 
