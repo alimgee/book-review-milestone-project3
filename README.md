@@ -1,5 +1,6 @@
 <h1 align="center">
-  <a href="" target="_blank"><img src="#" alt="Book Bites Screen"/></a>
+  <a href="" target="_blank"><img src="/documentation/desktopBB.png" alt="Book Bites Screen"/></a>
+  <a href="" target="_blank"><img src="/documentation/mobileBB.png" alt="Book Bites mobile Screen"/></a>
 </h1>
 
 
