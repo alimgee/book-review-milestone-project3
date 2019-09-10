@@ -36,10 +36,14 @@ class ReviewForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2,
                                        max=1500)])
     category = SelectField(u'Genre', choices=[
+        ('comedy', 'Comedy'),
+        ('drama', 'Drama'),
+        ('education', 'Education'),
         ('factual', 'Fact'),
         ('fiction', 'Fiction'),
         ('health', 'Health'),
         ('history', 'History'),
+        ('music', 'Music'),
         ('nature', 'Nature'),
         ('science', 'Science'),
         ('sport', 'Sport'),

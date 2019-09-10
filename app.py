@@ -622,9 +622,13 @@ def get_icon_class(cat):
     # modify thisand the AddReviewForm class in forms.py to add new categorys
 
     icons = {
+        'comedy': 'fa fa-smile-o',
+        'drama': 'fa fa-video-camera',
+        'education': 'fa fa-book',
         'factual': 'fa fa-picture-o',
         'fiction': 'fa fa-rocket',
         'health': 'fa fa-heartbeat',
+        'music': 'fa fa-music',
         'nature': 'fa fa-leaf',
         'science': 'fa fa-cogs',
         'sport': 'fa fa-futbol-o',
