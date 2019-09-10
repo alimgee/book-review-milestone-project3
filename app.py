@@ -623,11 +623,11 @@ def get_icon_class(cat):
 
     icons = {
         'factual': 'fa fa-picture-o',
-        'fiction': 'fa fa-picture-o',
+        'fiction': 'fa fa-rocket',
         'health': 'fa fa-heartbeat',
         'nature': 'fa fa-leaf',
         'science': 'fa fa-cogs',
-        'sport': 'fa fa-futbo-o',
+        'sport': 'fa fa-futbol-o',
         'history': 'fa fa-globe',
         }
     return icons[cat]  # returning relevant classes
