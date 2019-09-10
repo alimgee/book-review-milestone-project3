@@ -4,7 +4,8 @@
 {% for review in reviews %}
 <!-- looping through mongoaDB collection -->
 <div class="card mb-4">
-    <div class="card-header reviewer"><span class="review-title "><strong>Reviewed By:</strong></span> 
+    <div class="card-header reviewer"><span class="review-title "><strong>Reviewed By: </strong></span> 
+        <strong><i class="fa fa-user-circle" aria-hidden="true"></i> </strong>
         <span> {{ review.username}} </span></div>
     <div class="card-body">
         <div class="row">
