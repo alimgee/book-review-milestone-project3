@@ -20,7 +20,7 @@ app.secret_key = os.getenv('SECRET_KEY')
 # creating mongo app
 mongo = PyMongo(app)
 
-page_limit = 2
+page_limit = 4
 # for pagination - amount of records to be displayed per page
 
 
