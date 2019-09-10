@@ -153,7 +153,7 @@ def register():
         # if reigster form passes all validation check if username  exists
         users = mongo.db.users
         find_user = users.find_one({'username': request.form['username']})
-        
+
         if find_user is None:
             # if username is not in db insert the record into users collection
             password = generate_password_hash(request.form['password'])
@@ -161,11 +161,14 @@ def register():
             users.insert_one({'username': request.form['username'],
                              'password': password})
             # Notify new user succesfully registration and create a  session
-            flash('You have registered and are logged in as ' +
-                  form.username.data, 'success')
+            flash('You have registered and are logged in as "' +
+                  form.username.data +
+                  '". You can remove your account by selecting "My Profile" ' +
+                  ' from the top navigation menu',
+                  'success')
             session['username'] = request.form['username']
             session['logged'] = True
-            return redirect(url_for('index'))
+            return redirect(url_for('my_reviews'))
         else:
             # if username already exists in db, notify
             username = request.form['username']
