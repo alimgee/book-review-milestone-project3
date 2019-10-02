@@ -23,6 +23,9 @@ body{
 .nav-item{
     color: #F5FAFA!important;
 }
+.nav-item:hover {
+    color: #000!important;
+}
 
 /* page intro */
 
