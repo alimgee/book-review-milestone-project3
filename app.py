@@ -90,11 +90,11 @@ def my_profile():
         find_user = mongo.db.users.find_one({'username': current_user})
         # setting db username to the current session username
         reviews = mongo.db.reviews.find({'username': current_user})
-        count = mongo.db.reviews.count_documents({'username': current_user})       
+        count = mongo.db.reviews.count_documents({'username': current_user})
         return render_template('myprofile.html',
                                reviews=reviews,
                                title='My Profile',
-                               user=find_user, 
+                               user=find_user,
                                count=count)
     else:
         # if user is not logged in
@@ -238,10 +238,11 @@ def sign_out():
 
 @app.route('/about')
 def about():
-    ''' function to display about page with detail on project 
+    ''' function to display about page with detail on project
     and relevant disclaimer
     '''
     return render_template('about.html', title='About')
+
 
 @app.route('/myreviews')
 def my_reviews():
@@ -386,7 +387,7 @@ def delete_review(id):
     # if a user trys to go to edit review that they don't own
     if one_review['username'] != session['username']:
         flash('You do not own this review and cannot delete it.' +
-            ' A user can only edit or delete their own reviews',
+              ' A user can only edit or delete their own reviews',
               'warning')
 
         return redirect(url_for('index'))  # sending to log in
