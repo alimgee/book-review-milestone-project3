@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content%}
 
-<!-- card to hold review details using junga to pull content from mongoDB -->
+<!-- bootstrap card to hold review details using jenga to pull content from mongoDB -->
 <div class="card mb-4">
   <div class="card-header"><span class="review-title "><strong>Reviewed By: </strong></span>
     <strong><i class="fa fa-user-circle" aria-hidden="true"></i> </strong>
@@ -25,11 +25,13 @@
     <div class="row mt-2">
       <div class="col-12"><span class="review-title text-capitalize"><strong>Book
             Review:</strong></span><br>
+            <!--formatting data from the db to show in paragrahs as originally entered by user when review was added-->
         {% for paragraph in formatted_review %}
         <p>{{ paragraph }}</p>
         {% endfor %}</div>
     </div>
     <hr />
+    <!--upvote and amazon lin section-->
     <div class="row">
       <div class="col-md-6 mb-2"><span class="review-title">Bites:</span> <span
           class="upvote">+{{ review.upvote }}</span> <a href="{{ url_for('upvote', id=review._id ) }} "> <i

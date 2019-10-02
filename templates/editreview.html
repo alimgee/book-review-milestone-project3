@@ -14,7 +14,7 @@
                         <!-- checking for user entry errors -->
                         {% if form.author.errors %}
                         {{ form.author(class="form-control form-control is-invalid") }}
-                        <div class="invalid-feedback">test
+                        <div class="invalid-feedback">
                             {% for error in form.username.errors %}
                             <span>{{ error }}</span>
                             {% endfor %}

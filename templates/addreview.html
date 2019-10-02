@@ -6,16 +6,16 @@
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-
+                <!--wtform to add new review to the db-->
                 <form method="POST" action="">
                     {{ form.hidden_tag() }}
                     <fieldset class="form-group">
 
                         <div class="form-group">
                             {{ form.author.label(class="form-control-label") }}
-                            {% if form.author.errors %}
+                            {% if form.author.errors %}<!--checking for invalid input and message user-->
                             {{ form.author(class="form-control form-control is-invalid") }}
-                            <div class="invalid-feedback">test
+                            <div class="invalid-feedback">
                                 {% for error in form.username.errors %}
                                 <span>{{ error }}</span>
                                 {% endfor %}
@@ -27,7 +27,7 @@
 
                         <div class="form-group">
                             {{ form.book_title.label(class="form-control-label") }}
-                            {% if form.book_title.errors %}
+                            {% if form.book_title.errors %}<!--checking for invalid input and message user-->
                             {{ form.book_title(class="form-control form-control is-invalid") }}
                             <div class="invalid-feedback">
                                 {% for error in form.book_title.errors %}
@@ -44,7 +44,7 @@
                                 <span id="summary-chars">500</span> characters remaining
                                 {% if form.summary.errors %}
                                 {{ form.summary(class="form-control form-control is-invalid") }}
-                                <div class="invalid-feedback">
+                                <div class="invalid-feedback"><!--checking for invalid input and message user-->
                                     {% for error in form.summary.errors %}
                                     <span>{{ error }}</span>
                                     {% endfor %}
@@ -59,7 +59,7 @@
                                 <span id="review-chars">1500</span> characters remaining
                                 {% if form.review.errors %}
                                 {{ form.review(class="form-control form-control is-invalid") }}
-                                <div class="invalid-feedback">
+                                <div class="invalid-feedback"><!--checking for invalid input and message user-->
                                     {% for error in form.review.errors %}
                                     <span>{{ error }}</span>
                                     {% endfor %}
@@ -73,7 +73,7 @@
                                 {{ form.category.label(class="form-control-label") }}
                                 {% if form.category.errors %}
                                 {{ form.category(class="form-control form-control is-invalid") }}
-                                <div class="invalid-feedback">
+                                <div class="invalid-feedback"><!--checking for invalid input and message user-->
                                     {% for error in form.category.errors %}
                                     <span>{{ error }}</span>
                                     {% endfor %}
@@ -85,7 +85,7 @@
 
 
                     </fieldset>
-                    <div class="form-group">
+                    <div class="form-group"><!--submitting new review form-->
                         {{ form.submit_add(class="btn btn-info") }}
                     </div>
                 </form>
