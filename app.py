@@ -38,9 +38,6 @@ def index():
     # setting offset initially to 0 (position in db for current page)
     max_pages = int(math.ceil(total / page_limit))
     # calculating max pages needed to display all records
-    page_range = (1, max_pages)
-    # creating a tuple with the page range in it
-
     # sort reviews by popularity (upvote)
     reviews = \
         mongo.db.reviews.find().sort('upvote', pymongo.DESCENDING)\
@@ -53,7 +50,6 @@ def index():
         current_page=current_page,
         offset=offset,
         max_pages=max_pages,
-        page_range=page_range,
         )
 
 
@@ -66,7 +62,7 @@ def review(id):
     one_review = mongo.db.reviews.find_one({'_id': ObjectId(id)})
     title = one_review['book_title']
     '''
-    Need to display paragraphs if entered by user into
+    Need to display paragraphs as entered by user into
     the review field
     '''
     formatted_review = one_review['review']
@@ -94,10 +90,7 @@ def my_profile():
         find_user = mongo.db.users.find_one({'username': current_user})
         # setting db username to the current session username
         reviews = mongo.db.reviews.find({'username': current_user})
-        count = mongo.db.reviews.count_documents({'username': current_user})
-        #if count == 0:
-            #flash('You currently have no reviews', 'success')
-        
+        count = mongo.db.reviews.count_documents({'username': current_user})       
         return render_template('myprofile.html',
                                reviews=reviews,
                                title='My Profile',
@@ -111,7 +104,7 @@ def my_profile():
 
 @app.route('/deleteprofile/<id>', methods=['GET', 'POST'])
 def delete_profile(id):
-    # user taking from logged in session
+    # user taken from logged in session
     user = session['username']
     # deleting all reviews by user
     mongo.db.reviews.delete_many({'username': user})
@@ -139,7 +132,7 @@ def upvote(id):
 def register():
     '''
     Function to allow a new user to register a new account on the db
-    CHecks if user is already logged in and checks that the user doesnt
+    Checks if user is already logged in and checks that the user doesnt
     current exist in db
     '''
     form = RegistrationForm()
@@ -433,10 +426,7 @@ def search():
 
         max_pages = int(math.ceil(total / page_limit))
         # calculating max pages needed to display all records
-
-        page_range = (1, max_pages)
-        # creating a tuple with the page range in it
-
+        # running query on search parametres
         find_reviews = \
             mongo.db.reviews.find({'$and':
                                   [{'$text': {'$search': search}},
@@ -466,7 +456,6 @@ def search():
             current_page=current_page,
             offset=offset,
             max_pages=max_pages,
-            page_range=page_range,
             search=search,
             category=category,
             )
@@ -494,9 +483,6 @@ def search():
         max_pages = int(math.ceil(total / page_limit))
         # calculating max pages needed to display all records
 
-        page_range = (1, max_pages)
-        # creating a tuple with the page range in it
-
         # searching db for the selected category in filter
         find_reviews = \
             mongo.db.reviews.find({'category':
@@ -522,7 +508,6 @@ def search():
             current_page=current_page,
             offset=offset,
             max_pages=max_pages,
-            page_range=page_range,
             search=search,
             category=category,
             )
@@ -542,9 +527,6 @@ def search():
 
         max_pages = int(math.ceil(total / page_limit))
         # calculating max pages needed to display all records
-
-        page_range = (1, max_pages)
-        # creating a tuple with the page range in it
 
         # running find on contents of search box using multifield text search
         find_reviews = \
@@ -572,7 +554,6 @@ def search():
             current_page=current_page,
             offset=offset,
             max_pages=max_pages,
-            page_range=page_range,
             search=search,
             category=category,
             )
@@ -639,4 +620,4 @@ def get_icon_class(cat):
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=os.environ.get('PORT'),
-            debug=True)
+            debug=False)
